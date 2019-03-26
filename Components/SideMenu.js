@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import Drawer from 'react-native-drawer'
+// eslint-disable-next-line react/require-extension
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import Drawer from 'react-native-drawer';
 
 
 export default class SideMenu extends Component{
