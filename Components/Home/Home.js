@@ -13,7 +13,8 @@ export default class Main extends Component{
 
     openControlPanel = () => {
         this._drawer.open()
-    };
+    };  
+
     render(){
 
         const {navigation} = this.props;
@@ -26,7 +27,7 @@ export default class Main extends Component{
                     <Menu navigation={navigation}/>
                 }
             >
-                <Shop open={this.openControlPanel}/>
+                <Shop open={this.openControlPanel} navigation={navigation}/>
             </Drawer>
         )
             

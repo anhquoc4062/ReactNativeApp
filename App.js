@@ -8,14 +8,19 @@ import { fromLeft } from 'react-navigation-transitions';
 
 import Home from './Components/Home/Home.js';
 import Authentication from './Components/Authentication/Authentication.js';
-import Menu from './Components/Home/Menu';
+import Detail from './Components/Detail/Detail';
+import ChooseTime from './Components/ChooseTime/ChooseTime';
+import ChooseSeat from './Components/ChooseSeat/ChooseSeat';
 
 
 const App = createStackNavigator(
   {
+    
     Home: Home,
     Authentication: Authentication,
-    Menu: Menu
+    Detail: Detail,
+    ChooseTime: ChooseTime,
+    ChooseSeat: ChooseSeat,
   },
   {
     headerMode: 'none',
