@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, ViewPagerAndroid, TouchableNativeFeedback, Image, FlatList} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import Global from '../../../Globals';
 
 //import Image from 'react-native-scalable-image';
 
@@ -22,7 +23,7 @@ export default class ViewPager extends Component{
         }
     }
     componentDidMount() {
-        return fetch('http://192.168.1.94:81/server/getphimmoinhat.php')
+        return fetch('http://'+Global.API+'/server/getphimmoinhat.php')
         .then((response) => response.json())
         .then((responseJson) => {
             this.setState({
@@ -52,7 +53,7 @@ export default class ViewPager extends Component{
                             movieId: item.id_phim,
                         })}>
                             <View style={styles.pageStyle} >
-                            <Image source={{uri: "http://192.168.1.94:81/server/uploads/poster/"+item.hinh_phim}} style={styles.pagePoster} />
+                            <Image source={{uri: "http://"+Global.API+"/server/uploads/poster/"+item.hinh_phim}} style={styles.pagePoster} />
                             <View style={styles.caption}>
                                 <Text style={{color: '#C2C1C5', fontWeight: '700', fontSize: 16}}>{item.ten_phim}</Text>
                                 <View style={{flexDirection:'row', marginTop: 5}}>

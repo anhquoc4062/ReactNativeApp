@@ -8,18 +8,37 @@ const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
 export default class ChooseTime extends Component{
-
+    constructor(props){
+        super(props);
+        this.state = {
+            selectedTime : "",
+            selectedDate: ""
+        }
+    }
+    updateState (selectedDate, selectedTime) {
+        this.setState({
+            selectedTime : selectedTime,
+            selectedDate: selectedDate
+        });
+    }
     render(){
         const { navigation } = this.props;
-        const itemId = navigation.getParam('movieId', -1);
+        const {selectedDate, selectedTime} = this.state;
+        const movieId = navigation.getParam('movieId', -1);
+        const movieName = navigation.getParam('movieName', '');
         return(
             <View style={styles.wrapper}>
                 <ScrollView>
                     <Header navigation= {navigation}/>
-                    <Body navigation= {navigation}/>
+                    <Body navigation= {navigation} updateParentState={this.updateState.bind(this)}/>
                     
                 </ScrollView>
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('ChooseSeat')}>
+                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('ChooseSeat',{
+                    movieId: movieId,
+                    movieName: movieName,
+                    selectedTime: selectedTime,
+                    selectedDate: selectedDate
+                })}>
                         <Text style={styles.buttonText}>CHỌN GHẾ</Text>
                     </TouchableOpacity>
             </View>

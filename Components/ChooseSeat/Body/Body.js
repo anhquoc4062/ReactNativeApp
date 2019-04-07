@@ -13,7 +13,7 @@ export default class Body extends Component{
         this.state = {
             seats: [],
             disabledSeats: [],
-            takenSeats: ['A5', 'B7', 'D8'],//example,
+            takenSeats: [],//example,
             selectedSeats: []
         }
     }
@@ -50,20 +50,24 @@ export default class Body extends Component{
         });
     }
 
+    updateParentState(total){
+        this.props.updateParentState(total);
+    }
+
     selectedSeat(seatName, selected){
         if(selected == 1){
             this.setState({
                 selectedSeat : this.state.selectedSeats.push(seatName)
-            })
+            },()=> this.updateParentState(this.state.selectedSeats.length * 9))
         }
         else{
             var currentArr = this.state.selectedSeats;
             var selectedIndex = currentArr.indexOf(seatName);
             this.setState({
                 selectedSeat : currentArr.splice(selectedIndex, 1)
-            })
+            },()=> this.updateParentState(this.state.selectedSeats.length * 9))
         }
-        
+        console.log(this.state.selectedSeats);
     }
 
     componentDidMount(){
@@ -106,12 +110,15 @@ export default class Body extends Component{
 
         const {navigation} = this.props;
         const {seats, selectedSeats} = this.state;
-        
+        const selectedTime = navigation.getParam('selectedTime', '');
+        const selectedDate = navigation.getParam('selectedDate', '');
+        const movieId = navigation.getParam('movieId', -1);
+        const movieName = navigation.getParam('movieName', '');
         return(
             <View style={styles.wrapper}>
                 <View style={styles.infoContainer}> 
-                    <Text style={styles.movieNameText}>ALITA: NỮ THẦN CHIẾN BINH</Text>
-                    <Text style={styles.dateTimeText}>1 tháng 4 - 7:30 AM</Text>
+                    <Text style={styles.movieNameText}>{movieName}</Text>
+                    <Text style={styles.dateTimeText}>{selectedDate} - {selectedTime}</Text>
                 </View>
 
                 <View style={styles.seatStatusContainer}>

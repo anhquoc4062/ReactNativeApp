@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-
+import Global from '../../../Globals';
 
 const { width, height } = Dimensions.get("window");
 
@@ -14,7 +14,8 @@ export default class Body extends Component{
             showDate: [],
             showTime: [],
             dataSource: [],
-            selectedTime: ''
+            selectedTime: '',
+            selectedDate: ''
         }
         this.selectedShowTime = this.selectedShowTime.bind(this);
     }
@@ -43,6 +44,9 @@ export default class Body extends Component{
         strDay = dd + ' tháng ' + mm;
         var arr = [];
         arr.push({'date': strDay})
+        this.setState({
+            selectedDate: strDay
+        })
         for(var i = 1;i<=6;i++){
             var thisDay = new Date();
             thisDay.setDate(today.getDate()+i);
@@ -60,27 +64,49 @@ export default class Body extends Component{
     }
 
     selectedShowTime(timeId){
-        console.log("Selected time " + timeId);
+        //console.log("Selected time " + timeId);
         this.setState({
             selectedTime: timeId
-        });
+        },
+        ()=> this.updateParentState(this.state.selectedDate, this.state.selectedTime)
+        );
+        //this.updateParentState(this.state.selectedDate, this.state.selectedTime);
+    }
+
+    selectedShowDate(index){
+        this.setState({
+            selectedDate: this.state.showDate[index].date
+        },
+        ()=> this.updateParentState(this.state.selectedDate, this.state.selectedTime)
+        );
+        //console.log(this.state.showDate[index].date);
+        
+
     }
 
     componentDidMount = () =>{
         this.generateDate();
         this.generateTime();
+        //this.selectedShowDate(0);
+    }
+
+    updateParentState(selectedDate, selectedTime) {
+        this.props.updateParentState(selectedDate, selectedTime);
     }
 
     render(){
 
         const {navigation} = this.props;
-        const {showDate, showTime} = this.state;
-        console.log(this.state.showTime);
+        const {showDate, showTime, selectedDate, selectedTime} = this.state;
+        
+        const movieId = navigation.getParam('movieId', -1);
+        const movieName = navigation.getParam('movieName', '');
+        const movieBanner = navigation.getParam('movieBanner', '');
         return(
             <View style={styles.wrapper}>
-                <Image source={{uri: "http://192.168.1.94:81/server/uploads/banner/"+'us.jpg'}} style={styles.banner}/>
+                <Image source={{uri: "http://"+Global.API+"/server/uploads/banner/"+movieBanner}} style={styles.banner}/>
                 <View style={styles.movieNameContainer}>
-                    <Text style={styles.movieName}>US (CHÚNG TA)</Text>
+                    <Text style={styles.movieName}>{movieName}</Text>
                 </View>
                 <Carousel 
                     contentContainerCustomStyle = {styles.carousel}
@@ -92,6 +118,7 @@ export default class Body extends Component{
                         </View>
                         
                     )}
+                    onSnapToItem={(index)=>this.selectedShowDate(index)}
                     sliderWidth={width}
                     itemWidth={width/2.3}
                     enableSnap={true}
@@ -100,11 +127,11 @@ export default class Body extends Component{
                     />
                 <View style={styles.showTimeContainer}>
                     {showTime.map(item => (
-                        <TouchableOpacity onPress={()=>this.selectedShowTime(item.id)} key={item.time}>
-                            <View style={this.state.selectedTime == item.id
+                        <TouchableOpacity onPress={()=>this.selectedShowTime(item.time)} key={item.time}>
+                            <View style={this.state.selectedTime == item.time
                                         ? styles.showTimeItemActive
                                         : styles.showTimeItemInactive}>
-                                <Text style={this.state.selectedTime == item.id
+                                <Text style={this.state.selectedTime == item.time
                                         ? styles.showTimeTextActive
                                         : styles.showTimeTextInactive}>{item.time}</Text>
                             </View>
@@ -137,7 +164,7 @@ const styles = StyleSheet.create({
     },
     movieName: {
         color: '#C2C1C5',
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
     },
     carousel: {

@@ -11,15 +11,18 @@ import Authentication from './Components/Authentication/Authentication.js';
 import Detail from './Components/Detail/Detail';
 import ChooseTime from './Components/ChooseTime/ChooseTime';
 import ChooseSeat from './Components/ChooseSeat/ChooseSeat';
+import ChooseCombo from './Components/ChooseCombo/ChooseCombo';
 
 
 const App = createStackNavigator(
   {
-    
     Home: Home,
-    Authentication: Authentication,
     Detail: Detail,
+    ChooseCombo: ChooseCombo,
     ChooseTime: ChooseTime,
+    Authentication: Authentication,
+    
+    
     ChooseSeat: ChooseSeat,
   },
   {

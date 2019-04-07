@@ -1,25 +1,45 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image} from 'react-native';
 import Header from './Header';
-import { ScrollView } from 'react-native-gesture-handler';
 import Body from './Body/Body';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
 export default class ChooseSeat extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            total : 0
+        }
+    }
+
+    updateState(total){
+        this.setState({
+            total: total
+        })
+    }
+
 
     render(){
         const { navigation } = this.props;
-        const itemId = navigation.getParam('movieId', -1);
+        const { total } = this.state;
+        
+        const movieId = navigation.getParam('movieId', -1);
+        const movieName = navigation.getParam('movieName', '');
         return(
             <View style={styles.wrapper}>
                 <ScrollView>
                     <Header navigation= {navigation}/>
-                    <Body navigation= {navigation}/>
+                    <Body navigation= {navigation} updateParentState = {this.updateState.bind(this)}/>
                 </ScrollView>
-                <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>THANH TOÁN - 0$</Text>
+                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('ChooseCombo',{
+                    movieId: movieId,
+                    movieName: movieName,
+                    seatCosts: total,
+                })}>
+                        <Text style={styles.buttonText}>CHỌN COMBO - ${total}</Text>
                     </TouchableOpacity>
             </View>
             
