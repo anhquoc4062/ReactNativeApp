@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image} from 'react-native';
-import Header from '../Authentication/Header';
-import Body from '../Authentication/Body/Body';
+import Header from '../Login/Header';
+import Body from '../Login/Body/Body';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
-export default class Authentication extends Component{
+export default class Login extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -18,16 +18,14 @@ export default class Authentication extends Component{
 
     }
     render(){
+        const {navigation} = this.props;
         return(
             <View style={styles.wrapper}>
                 <ScrollView>
                     <Header navigation= {navigation}/>
-                    <Body navigation= {navigation} updateParentState={this.updateState.bind(this)}/>
+                    <Body navigation= {navigation}/>
                     
                 </ScrollView>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>THANH TOÁN - ${total}</Text>
-                </TouchableOpacity>
             </View>
             
             

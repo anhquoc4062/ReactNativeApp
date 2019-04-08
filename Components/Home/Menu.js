@@ -23,7 +23,7 @@ export default class Shop extends Component{
     render(){
         
         const logintJSX = (
-            <TouchableOpacity style={styles.button} onPress={()=>this.props.navigation.navigate('Authentication')}>
+            <TouchableOpacity style={styles.button} onPress={()=>this.props.navigation.navigate('Login')}>
                 <Text style={styles.textButton}>Đăng nhập</Text>
             </TouchableOpacity>
         );

@@ -2,14 +2,23 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView, Image, Dimensions, TouchableOpacity} from 'react-native';
 import YouTube from 'react-native-youtube';
 import Global from '../../Globals';
+import PlayIcon from '../../src/images/icons/play.png';
 
 export default class Detail extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      movie: []
+      movie: [],
+      fullscreen: false
     }
+  }
+
+  playVideo(){
+    this.setState({
+      fullscreen: true
+    })
+    console.log("Pressed");
   }
 
   componentDidMount(){
@@ -44,9 +53,12 @@ export default class Detail extends Component {
           <View style={styles.container} key={item.id_phim}>
             <ScrollView contentContainerStyle={{paddingVertical: 20}}>
             <View>
+            
               <YouTube
                   videoId={item.trailer_phim}   // The YouTube video ID
-                  fullscreen={false}
+                  play={this.state.fullscreen}
+                  controls={1}
+                  fullscreen={this.state.fullscreen}
                   apiKey = "AIzaSyCL6075y1oyVdXaqIVKBIIs7vnQ5ILtVF8"
                   onReady={e => this.setState({ isReady: true })}
                   onChangeState={e => this.setState({ status: e.state })}
@@ -54,7 +66,14 @@ export default class Detail extends Component {
                   onError={e => this.setState({ error: e.error })}
                   style={{ alignSelf: 'stretch', height: 200, position: 'relative', top:-20}}
                   />
+                  
+            
+            <TouchableOpacity style={styles.playButton} onPress={()=>this.playVideo()}>
+                <Image source={PlayIcon} style={{width: 50, height: 50}} />
+                
+            </TouchableOpacity>
             </View>
+            
             <View style={{paddingLeft: 15}}>
               <Text style={{fontSize: 18, fontWeight: "bold", color: '#C2C1C5'}}>{item.ten_phim}</Text>
             </View>
@@ -98,6 +117,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1d1d27',
     flexDirection: 'column',
+  },
+  playButton:{
+    position: 'relative',
+    top: -150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: -50,
   },
   boxButton: {
     justifyContent: 'center',

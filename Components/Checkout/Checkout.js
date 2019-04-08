@@ -1,23 +1,27 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image} from 'react-native';
-import Header from '../Authentication/Header';
-import Body from '../Authentication/Body/Body';
+import Header from '../Checkout/Header';
+import Body from './Body/Body';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
-export default class Authentication extends Component{
+export default class Checkout extends Component{
     constructor(props){
         super(props);
         this.state = {
-
+            
         }
     }
     componentDidMount(){
 
     }
+    updateState (total) {
+
+    }
     render(){
+        const {navigation} = this.props;
         return(
             <View style={styles.wrapper}>
                 <ScrollView>
@@ -26,7 +30,7 @@ export default class Authentication extends Component{
                     
                 </ScrollView>
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>THANH TOÁN - ${total}</Text>
+                    <Text style={styles.buttonText}>XÁC NHẬN</Text>
                 </TouchableOpacity>
             </View>
             

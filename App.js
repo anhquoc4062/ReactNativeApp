@@ -7,23 +7,25 @@ import { fromLeft } from 'react-navigation-transitions';
 //import Button from 'react-native-button';
 
 import Home from './Components/Home/Home.js';
-import Authentication from './Components/Authentication/Authentication.js';
+import Login from './Components/Login/Login.js';
 import Detail from './Components/Detail/Detail';
 import ChooseTime from './Components/ChooseTime/ChooseTime';
 import ChooseSeat from './Components/ChooseSeat/ChooseSeat';
 import ChooseCombo from './Components/ChooseCombo/ChooseCombo';
+import Checkout from './Components/Checkout/Checkout';
 
 
 const App = createStackNavigator(
   {
+    
     Home: Home,
-    Detail: Detail,
+    
+    Login: Login,
     ChooseCombo: ChooseCombo,
     ChooseTime: ChooseTime,
-    Authentication: Authentication,
-    
-    
     ChooseSeat: ChooseSeat,
+    Checkout: Checkout,
+    Detail: Detail,
   },
   {
     headerMode: 'none',
