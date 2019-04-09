@@ -4,8 +4,25 @@ import Drawer from 'react-native-drawer';
 import {TouchableOpacity, Text} from 'react-native';
 import Shop from './Shop';
 import Menu from './Menu';
+import checkLogin from '../../src/api/checkLogin';
+import getToken from '../../src/api/getToken';
+import CheckSignIn from '../CheckSignIn';
 
+console.disableYellowBox = true;
 export default class Main extends Component{
+
+    
+    componentDidMount(){
+        getToken()
+        .then(token => checkLogin(token))
+        .then(res => {
+            if(res.token != 'ERROR'){
+                CheckSignIn.onSignIn(res.username)
+            }
+            
+        })
+        .catch(error => console.log(error));
+    }   
 
     closeControlPanel = () => {
         this._drawer.close()
@@ -14,7 +31,6 @@ export default class Main extends Component{
     openControlPanel = () => {
         this._drawer.open()
     };  
-
     render(){
 
         const {navigation} = this.props;

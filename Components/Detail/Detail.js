@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, ScrollView, Image, Dimensions, TouchableOpacity}
 import YouTube from 'react-native-youtube';
 import Global from '../../Globals';
 import PlayIcon from '../../src/images/icons/play.png';
+import getToken from '../../src/api/getToken';
 
 export default class Detail extends Component {
 
@@ -45,6 +46,24 @@ export default class Detail extends Component {
             
         })
         .catch((error)=>(console.log(error)));
+  }
+
+  goToBooking(id_phim, ten_phim, banner_phim){
+    getToken()
+    .then(token => {
+      if(token != ''){
+        this.props.navigation.navigate('ChooseTime',{
+          'movieId': id_phim,
+          'movieName': ten_phim,
+          'movieBanner': banner_phim,
+          
+        })
+      }
+      else{
+        this.props.navigation.navigate('Login');
+      }
+    })
+    
   }
 
   render() {
@@ -95,13 +114,7 @@ export default class Detail extends Component {
               </Text>
             </View>
           </ScrollView>
-          <TouchableOpacity style={styles.boxButton} onPress={()=>this.props.navigation.navigate('ChooseTime',{
-              'movieId': item.id_phim,
-              'movieName': item.ten_phim,
-              'movieBanner': item.banner_phim,
-              
-            }
-          )}>
+          <TouchableOpacity style={styles.boxButton} onPress={()=>this.goToBooking(item.id_phim, item.ten_phim, item.banner_phim)}>
               <Text style={{color: '#C2C1C5', fontWeight: 'bold',fontSize: 18}}>ĐẶT VÉ</Text>
           </TouchableOpacity>
           

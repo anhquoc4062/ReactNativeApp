@@ -1,6 +1,8 @@
 
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import CheckSignIn from '../CheckSignIn';
+import saveToken from '../../src/api/saveToken'
 
 import ProfileIcon from '../../src/images/icons/profile.png';
 import HomeIcon from '../../src/images/icons/home.png';
@@ -18,6 +20,22 @@ export default class Shop extends Component{
             isLoggedIn: false,
             profileName: 'Chưa đăng nhập'
         }
+        CheckSignIn.onSignIn = this.onSignIn.bind(this);
+    }
+
+    onSignIn(username){
+        this.setState({
+            isLoggedIn: true,
+            profileName: username
+        })
+    }
+
+    onClickLogOut(){
+        this.setState({
+            isLoggedIn: false,
+            profileName: 'Chưa đăng nhập'
+        })
+        saveToken('');
     }
 
     render(){
@@ -28,7 +46,7 @@ export default class Shop extends Component{
             </TouchableOpacity>
         );
         const logoutJSX = (
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={()=>this.onClickLogOut()}>
                 <Text style={styles.textButton}>Đăng xuất</Text>
             </TouchableOpacity>
         );

@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import register from '../../../src/api/register';
+import login from '../../../src/api/login';
+import CheckSignIn from '../../CheckSignIn';
+import saveToken from '../../../src/api/saveToken.js';
+import getToken from '../../../src/api/getToken.js';
 import {
   StyleSheet,
   Text,
@@ -21,6 +26,11 @@ export default class LoginView extends Component {
     }
   }
 
+  componentDidMount(){
+    getToken()
+    .then(token => console.log(token))
+  }
+
   onClickListener = (viewId) => {
     if(viewId == 'login'){
         this.setState({
@@ -32,6 +42,107 @@ export default class LoginView extends Component {
             isSignIn: false
         })
     }
+  }
+
+  onClickSignIn(){
+    const {username, password} = this.state;
+    const {navigation} = this.props;
+    if(username == '' || password == ''){
+      Alert.alert(
+        'Thông báo',
+        'Chưa nhập username hoặc password',
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+      );
+    }
+    else{
+      login(username, password)
+      .then(res => {
+        if(res.token == "ERROR"){
+          Alert.alert(
+            'Thông báo',
+            'Tài khoản không tồn tại',
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );
+        }
+        else{
+          Alert.alert(
+            'Thông báo',
+            'Đăng nhập thành công',
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );
+          CheckSignIn.onSignIn(res.username);
+          saveToken(res.token);
+          navigation.goBack();
+
+        }
+      })
+    }
+  }
+
+  onClickSignUp(){
+    const {username, password, email, repassword} = this.state;
+    if(username == '' || email == '' || password == '' || repassword == ''){
+      Alert.alert(
+        'Thông báo',
+        'Thông tin không được để trống',
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+      );
+    }
+    else{
+      if(password != repassword){
+        Alert.alert(
+          'Thông báo',
+          'Mật khẩu không khớp',
+          [
+            {text: 'OK', onPress: () => console.log('OK Pressed')},
+          ],
+          {cancelable: false},
+        );
+      }
+      else{
+
+        register(username,email, password)
+        .then(res => {
+          if(res == 'SUCCESS'){
+            Alert.alert(
+              'Thông báo',
+              'Đăng ký thành công',
+              [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+              {cancelable: false},
+            );
+
+            this.setState({
+              isSignIn: true
+            })
+          }
+          else{
+            Alert.alert(
+              'Thông báo',
+              'Đăng ký thất bại',
+              [
+                {text: 'OK', onPress: () => console.log('OK Pressed')},
+              ],
+              {cancelable: false},
+            );
+          }
+        });
+      }
+    }
+    
   }
 
   render() {
@@ -48,7 +159,7 @@ export default class LoginView extends Component {
           underlineColorAndroid='transparent'
           onChangeText={(password) => this.setState({password})}/>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={()=>this.onClickSignIn()}>
                 <Text style={{fontSize: 15, color: '#F66280'}}>Đăng nhập ngay</Text>
           </TouchableOpacity>
     </View>
@@ -78,7 +189,7 @@ export default class LoginView extends Component {
           secureTextEntry={true}
           underlineColorAndroid='transparent'
           onChangeText={(repassword) => this.setState({repassword})}/>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={()=>this.onClickSignUp()}>
                 <Text style={{fontSize: 15, color: '#F66280'}}>Đăng ký ngay</Text>
           </TouchableOpacity>
         

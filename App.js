@@ -19,7 +19,6 @@ const App = createStackNavigator(
   {
     
     Home: Home,
-    
     Login: Login,
     ChooseCombo: ChooseCombo,
     ChooseTime: ChooseTime,
