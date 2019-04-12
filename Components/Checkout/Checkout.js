@@ -11,10 +11,12 @@ export default class Checkout extends Component{
     constructor(props){
         super(props);
         this.state = {
-            
+            selectedSeats: [],
+            selectedCombo: []
         }
     }
     componentDidMount(){
+        
 
     }
     updateState (total) {
@@ -22,6 +24,8 @@ export default class Checkout extends Component{
     }
     render(){
         const {navigation} = this.props;
+        console.log(this.state.selectedCombo);
+        console.log(this.state.selectedSeats);
         return(
             <View style={styles.wrapper}>
                 <ScrollView>

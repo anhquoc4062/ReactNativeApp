@@ -19,12 +19,13 @@ const App = createStackNavigator(
   {
     
     Home: Home,
+    Checkout: Checkout,
     Login: Login,
-    ChooseCombo: ChooseCombo,
     ChooseTime: ChooseTime,
     ChooseSeat: ChooseSeat,
-    Checkout: Checkout,
     Detail: Detail,
+    
+    ChooseCombo: ChooseCombo,
   },
   {
     headerMode: 'none',

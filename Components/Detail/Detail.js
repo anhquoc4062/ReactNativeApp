@@ -48,7 +48,7 @@ export default class Detail extends Component {
         .catch((error)=>(console.log(error)));
   }
 
-  goToBooking(id_phim, ten_phim, banner_phim){
+  goToBooking(id_phim, ten_phim, banner_phim, hinh_phim, thoiluong_phim){
     getToken()
     .then(token => {
       if(token != ''){
@@ -56,7 +56,8 @@ export default class Detail extends Component {
           'movieId': id_phim,
           'movieName': ten_phim,
           'movieBanner': banner_phim,
-          
+          'moviePoster': hinh_phim,
+          'movieDuration': thoiluong_phim
         })
       }
       else{
@@ -114,7 +115,7 @@ export default class Detail extends Component {
               </Text>
             </View>
           </ScrollView>
-          <TouchableOpacity style={styles.boxButton} onPress={()=>this.goToBooking(item.id_phim, item.ten_phim, item.banner_phim)}>
+          <TouchableOpacity style={styles.boxButton} onPress={()=>this.goToBooking(item.id_phim, item.ten_phim, item.banner_phim, item.hinh_phim, item.thoiluong_phim)}>
               <Text style={{color: '#C2C1C5', fontWeight: 'bold',fontSize: 18}}>ĐẶT VÉ</Text>
           </TouchableOpacity>
           

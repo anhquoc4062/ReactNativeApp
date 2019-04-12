@@ -14,28 +14,66 @@ export default class Body extends Component{
         this.state = {
             comboData: [],
             total: 0,
-            quantity: []
+            quantity: [],
+            selectedCombo: [],
+            comboCosts: 0,
         }
     }
-    incQuantity(price, index){
-        var quaArr = this.state.quantity;
+    incQuantity(id, name, price, index){
+        const { quantity, selectedCombo } = this.state;
+        
+        var quaArr = quantity;
         quaArr[index] += 1;
+        
+        var selectedComboArr = selectedCombo;
+        //add combo to selectedArray
+        var exist = false;
+        selectedComboArr.forEach(item => {
+            if(item.id_combo == id){
+                item.quantity = quaArr[index];
+                exist = true;
+            }
+        });
+
+        if(exist == false){
+            selectedComboArr.push({id_combo: id, ten_combo: name,quantity: quaArr[index]});
+        }
+
         this.setState({
             total: this.state.total+ parseFloat(price),
-            quantity: quaArr
+            quantity: quaArr,
+            selectedCombo: selectedComboArr,
+            comboCosts: this.state.comboCosts + parseFloat(price),
         },
-            ()=>this.updateParentState(this.state.total)
+            ()=>this.updateParentState(this.state.total, selectedCombo, this.state.comboCosts)
         )
     }
-    descQuantity(price, index){
-        var quaArr = this.state.quantity;
+    descQuantity(id, name, price, index){
+        const { quantity, selectedCombo} = this.state;
+        var quaArr = quantity;
         if(quaArr[index]>0){
             quaArr[index] -= 1;
+
+            var selectedComboArr = selectedCombo;
+            if(quaArr[index] != 0){
+                selectedComboArr.forEach(item => {
+                    if(item.id_combo == id){
+                        item.quantity = quaArr[index];
+                    }
+                });
+            }
+            else{
+                var removeIndex = selectedComboArr.map(item => item.id_combo).indexOf(id);
+                selectedComboArr.splice(removeIndex, 1);
+            }
+            
             this.setState({
-            total: this.state.total - parseFloat(price),
-            quantity: quaArr
+                total: this.state.total - parseFloat(price),
+                quantity: quaArr,
+                selectedCombo: selectedComboArr,
+                comboCosts: this.state.comboCosts - parseFloat(price),
             },
-                ()=>this.updateParentState(this.state.total)
+                ()=>this.updateParentState(this.state.total, selectedCombo, this.state.comboCosts)
             )
         }
     }
@@ -64,13 +102,13 @@ export default class Body extends Component{
         });
     }
 
-    updateParentState(total){
-        this.props.updateParentState(total);
+    updateParentState(total, selectedCombo, comboCosts){
+        this.props.updateParentState(total, selectedCombo, comboCosts);
     }
 
     render(){
         const {navigation} = this.props;
-        const {comboData} = this.state;
+        const {comboData, selectedCombo} = this.state;
         const {listComboContainer, 
             comboImage, 
             comboItem, 
@@ -97,10 +135,10 @@ export default class Body extends Component{
                                 <View style={quantityView}>
                                     <Text>{this.state.quantity[index]}</Text>
                                 </View>
-                                <TouchableOpacity style={button} onPress={()=>this.descQuantity(item.gia_combo, index)}>
+                                <TouchableOpacity style={button} onPress={()=>this.descQuantity(item.id_combo, item.ten_combo, item.gia_combo, index)}>
                                     <Text>-</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={button} onPress={()=>this.incQuantity(item.gia_combo, index)}>
+                                <TouchableOpacity style={button} onPress={()=>this.incQuantity(item.id_combo, item.ten_combo, item.gia_combo, index)}>
                                     <Text>+</Text>
                                 </TouchableOpacity>
                             </View>

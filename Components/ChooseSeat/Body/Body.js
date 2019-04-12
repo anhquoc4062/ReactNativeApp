@@ -50,24 +50,23 @@ export default class Body extends Component{
         });
     }
 
-    updateParentState(total){
-        this.props.updateParentState(total);
+    updateParentState(total, selectedSeat){
+        this.props.updateParentState(total, selectedSeat);
     }
 
     selectedSeat(seatName, selected){
         if(selected == 1){
             this.setState({
                 selectedSeat : this.state.selectedSeats.push(seatName)
-            },()=> this.updateParentState(this.state.selectedSeats.length * 9))
+            },()=> this.updateParentState(this.state.selectedSeats.length * 9, this.state.selectedSeats))
         }
         else{
             var currentArr = this.state.selectedSeats;
             var selectedIndex = currentArr.indexOf(seatName);
             this.setState({
                 selectedSeat : currentArr.splice(selectedIndex, 1)
-            },()=> this.updateParentState(this.state.selectedSeats.length * 9))
+            },()=> this.updateParentState(this.state.selectedSeats.length * 9, this.state.selectedSeats))
         }
-        console.log(this.state.selectedSeats);
     }
 
     componentDidMount(){

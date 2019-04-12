@@ -11,34 +11,54 @@ export default class ChooseSeat extends Component{
     constructor(props){
         super(props);
         this.state = {
-            total : 0
+            total : 0,
+            selectedSeats: []
         }
     }
 
-    updateState(total){
+    updateState(total, selectedSeats){
         this.setState({
-            total: total
+            total: total,
+            selectedSeats: selectedSeats
+        })
+    }
+
+    goToCombo(){
+        const { total, selectedSeats } = this.state;
+        const { navigation } = this.props;
+        const movieId = navigation.getParam('movieId', -1);
+        const movieName = navigation.getParam('movieName', '');
+        const moviePoster = navigation.getParam('moviePoster', '');
+        const movieDuration = navigation.getParam('movieDuration', 0);
+        const selectedTime = navigation.getParam('selectedTime', '');
+        const selectedDate = navigation.getParam('selectedDate', '');
+
+        navigation.navigate('ChooseCombo',{
+            movieId: movieId,
+            movieName: movieName,
+            moviePoster: moviePoster,
+            movieDuration: movieDuration,
+            selectedSeats: JSON.stringify(selectedSeats),
+            seatCosts: total,
+            selectedTime: selectedTime,
+            selectedDate: selectedDate,
+            
         })
     }
 
 
     render(){
         const { navigation } = this.props;
-        const { total } = this.state;
+        const { total, selectedSeats } = this.state;
         
-        const movieId = navigation.getParam('movieId', -1);
-        const movieName = navigation.getParam('movieName', '');
+        
         return(
             <View style={styles.wrapper}>
                 <ScrollView>
                     <Header navigation= {navigation}/>
                     <Body navigation= {navigation} updateParentState = {this.updateState.bind(this)}/>
                 </ScrollView>
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('ChooseCombo',{
-                    movieId: movieId,
-                    movieName: movieName,
-                    seatCosts: total,
-                })}>
+                <TouchableOpacity style={styles.button} onPress={()=>this.goToCombo()}>
                         <Text style={styles.buttonText}>CHỌN COMBO - ${total}</Text>
                     </TouchableOpacity>
             </View>

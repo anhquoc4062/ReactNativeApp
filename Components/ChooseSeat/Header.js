@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Imag
 import icBack from '../../src/images/icons/ic_back.png';
 
 
-const { wHeight } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export default class Header extends Component{
 

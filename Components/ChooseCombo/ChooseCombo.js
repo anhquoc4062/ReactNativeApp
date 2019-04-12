@@ -11,9 +11,20 @@ export default class ChooseCombo extends Component{
     constructor(props){
         super(props);
         this.state = {
-            total: 0
+            total: 0,
+            selectedCombo: [],
+            comboCosts: 0,
         }
     }
+    
+    updateState (total, selectedCombo, comboCosts) {
+        this.setState({
+            total: total,
+            selectedCombo: selectedCombo,
+            comboCosts: comboCosts
+        })
+    }
+
     componentDidMount(){
         const { navigation } = this.props;
         const seatCosts = navigation.getParam('seatCosts', 0);
@@ -21,11 +32,32 @@ export default class ChooseCombo extends Component{
             total: seatCosts
         })
     }
-    updateState (total) {
-        this.setState({
-            total: total
-        })
+
+    goToCheckout(){
+        const { total, selectedCombo, comboCosts } = this.state;
+        const { navigation } = this.props;
+        const movieId = navigation.getParam('movieId', -1);
+        const movieName = navigation.getParam('movieName', '');
+        const moviePoster = navigation.getParam('moviePoster', '');
+        const movieDuration = navigation.getParam('movieDuration', 0);
+        const selectedSeats = navigation.getParam('selectedSeats', '');
+        const selectedTime = navigation.getParam('selectedTime', '');
+        const selectedDate = navigation.getParam('selectedDate', '');
+
+        navigation.navigate('Checkout',{
+            movieId: movieId,
+            movieName: movieName,
+            moviePoster: moviePoster,
+            movieDuration: movieDuration,
+            selectedSeats: selectedSeats,
+            totalCosts: total,
+            selectedCombo: JSON.stringify(selectedCombo),
+            selectedTime: selectedTime,
+            selectedDate: selectedDate,
+            comboCosts: comboCosts,
+        });
     }
+
     render(){
         const { navigation } = this.props;
         
@@ -37,7 +69,7 @@ export default class ChooseCombo extends Component{
                     <Body navigation= {navigation} updateParentState={this.updateState.bind(this)}/>
                     
                 </ScrollView>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={()=>this.goToCheckout()}>
                     <Text style={styles.buttonText}>THANH TOÁN - ${total}</Text>
                 </TouchableOpacity>
             </View>

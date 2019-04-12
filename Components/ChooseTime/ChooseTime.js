@@ -26,6 +26,8 @@ export default class ChooseTime extends Component{
         const {selectedDate, selectedTime} = this.state;
         const movieId = navigation.getParam('movieId', -1);
         const movieName = navigation.getParam('movieName', '');
+        const moviePoster = navigation.getParam('moviePoster', '');
+        const movieDuration = navigation.getParam('movieDuration', '');
         return(
             <View style={styles.wrapper}>
                 <ScrollView>
@@ -36,8 +38,11 @@ export default class ChooseTime extends Component{
                 <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('ChooseSeat',{
                     movieId: movieId,
                     movieName: movieName,
+                    moviePoster: moviePoster,
+                    movieDuration: movieDuration,
                     selectedTime: selectedTime,
-                    selectedDate: selectedDate
+                    selectedDate: selectedDate,
+
                 })}>
                         <Text style={styles.buttonText}>CHỌN GHẾ</Text>
                     </TouchableOpacity>
