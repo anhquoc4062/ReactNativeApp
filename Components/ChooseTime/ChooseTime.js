@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image, Alert} from 'react-native';
 import Header from '../ChooseSeat/Header';
 import Body from './Body/Body';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -21,13 +21,41 @@ export default class ChooseTime extends Component{
             selectedDate: selectedDate
         });
     }
-    render(){
+
+    goToChooseSeat(){
+        
         const { navigation } = this.props;
         const {selectedDate, selectedTime} = this.state;
         const movieId = navigation.getParam('movieId', -1);
         const movieName = navigation.getParam('movieName', '');
         const moviePoster = navigation.getParam('moviePoster', '');
         const movieDuration = navigation.getParam('movieDuration', '');
+        if(selectedTime != ""){
+            navigation.navigate('ChooseSeat',{
+                movieId: movieId,
+                movieName: movieName,
+                moviePoster: moviePoster,
+                movieDuration: movieDuration,
+                selectedTime: selectedTime,
+                selectedDate: selectedDate
+
+            })
+        }
+        else{
+            Alert.alert(
+                'Thông báo',
+                'Chưa chọn suất chiếu',
+                [
+                  {text: 'OK', onPress: () => console.log('OK Pressed')},
+                ],
+                {cancelable: false},
+              );
+        }
+        
+    }
+
+    render(){
+        const { navigation } = this.props;
         return(
             <View style={styles.wrapper}>
                 <ScrollView>
@@ -35,15 +63,7 @@ export default class ChooseTime extends Component{
                     <Body navigation= {navigation} updateParentState={this.updateState.bind(this)}/>
                     
                 </ScrollView>
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('ChooseSeat',{
-                    movieId: movieId,
-                    movieName: movieName,
-                    moviePoster: moviePoster,
-                    movieDuration: movieDuration,
-                    selectedTime: selectedTime,
-                    selectedDate: selectedDate,
-
-                })}>
+                <TouchableOpacity style={styles.button} onPress={()=>this.goToChooseSeat()}>
                         <Text style={styles.buttonText}>CHỌN GHẾ</Text>
                     </TouchableOpacity>
             </View>

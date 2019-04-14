@@ -54,6 +54,7 @@ export default class ViewPager extends Component{
                         })}>
                             <View style={styles.pageStyle} >
                             <Image source={{uri: "http://"+Global.API+"/server/uploads/poster/"+item.hinh_phim}} style={styles.pagePoster} />
+                            {console.log("http://"+Global.API+"/server/uploads/poster/"+item.hinh_phim)}
                             <View style={styles.caption}>
                                 <Text style={{color: '#C2C1C5', fontWeight: '700', fontSize: 16}}>{item.ten_phim}</Text>
                                 <View style={{flexDirection:'row', marginTop: 5}}>

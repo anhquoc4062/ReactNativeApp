@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, ScrollView, Image, Dimensions, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Image, Dimensions, TouchableOpacity, Alert} from 'react-native';
 import YouTube from 'react-native-youtube';
 import Global from '../../Globals';
 import getToken from '../../src/api/getToken';
@@ -49,22 +49,35 @@ export default class Detail extends Component {
         .catch((error)=>(console.log(error)));
   }
 
-  goToBooking(id_phim, ten_phim, banner_phim, hinh_phim, thoiluong_phim){
-    getToken()
-    .then(token => {
-      if(token != ''){
-        this.props.navigation.navigate('ChooseTime',{
-          'movieId': id_phim,
-          'movieName': ten_phim,
-          'movieBanner': banner_phim,
-          'moviePoster': hinh_phim,
-          'movieDuration': thoiluong_phim
-        })
-      }
-      else{
-        this.props.navigation.navigate('Login');
-      }
-    })
+  goToBooking(id_phim, id_theloai, ten_phim, banner_phim, hinh_phim, thoiluong_phim){
+    if(id_theloai == 1){
+      getToken()
+      .then(token => {
+        if(token != ''){
+          this.props.navigation.navigate('ChooseTime',{
+            'movieId': id_phim,
+            'movieName': ten_phim,
+            'movieBanner': banner_phim,
+            'moviePoster': hinh_phim,
+            'movieDuration': thoiluong_phim
+          })
+        }
+        else{
+          this.props.navigation.navigate('Login');
+        }
+      })
+    }
+    else{
+      Alert.alert(
+        'Thông báo',
+        'Phim chưa được công chiếu',
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+      );
+    }
+    
     
   }
 
@@ -116,7 +129,7 @@ export default class Detail extends Component {
               </Text>
             </View>
           </ScrollView>
-          <TouchableOpacity style={styles.boxButton} onPress={()=>this.goToBooking(item.id_phim, item.ten_phim, item.banner_phim, item.hinh_phim, item.thoiluong_phim)}>
+          <TouchableOpacity style={styles.boxButton} onPress={()=>this.goToBooking(item.id_phim, item.id_theloai,item.ten_phim, item.banner_phim, item.hinh_phim, item.thoiluong_phim)}>
               <Text style={{color: '#C2C1C5', fontWeight: 'bold',fontSize: 18}}>ĐẶT VÉ</Text>
           </TouchableOpacity>
           

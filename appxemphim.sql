@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 07, 2019 lúc 03:33 PM
+-- Thời gian đã tạo: Th4 14, 2019 lúc 06:11 AM
 -- Phiên bản máy phục vụ: 10.1.37-MariaDB
 -- Phiên bản PHP: 7.3.1
 
@@ -31,15 +31,17 @@ SET time_zone = "+00:00";
 CREATE TABLE `account` (
   `id_account` int(11) NOT NULL,
   `username_account` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `password_account` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `email_account` text COLLATE utf8_unicode_ci NOT NULL,
+  `password_account` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `account`
 --
 
-INSERT INTO `account` (`id_account`, `username_account`, `password_account`) VALUES
-(1, 'anhquoc4062', 'ce6eee13374e007c3236c2bbd5ba3f62');
+INSERT INTO `account` (`id_account`, `username_account`, `email_account`, `password_account`) VALUES
+(1, 'anhquoc4062', 'anhquoc4062@gmail.com', 'ce6eee13374e007c3236c2bbd5ba3f62'),
+(7, 'user', 'user@abc', '202cb962ac59075b964b07152d234b70');
 
 -- --------------------------------------------------------
 
@@ -66,6 +68,105 @@ INSERT INTO `combo` (`id_combo`, `ten_combo`, `hinh_combo`, `gia_combo`, `mota_c
 (4, 'Trà Sữa', 'trasua.png', 1.5, '1 Trà Sữa. Nhận trong ngày xem phim. '),
 (5, 'BUMBLEBEE COMBO', 'bumble.png', 9, '1 Bumblebee cup + 1 Popcorn. Redeem on showing date. '),
 (6, 'GUDETAMA COMBO', 'gudta.png', 8.5, '1 Ly nước Gudetama + 1 Bắp. Nhận trong ngày xem phim. ');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `combodadat`
+--
+
+CREATE TABLE `combodadat` (
+  `id_combodadat` int(11) NOT NULL,
+  `id_hoadon` int(11) NOT NULL,
+  `id_combo` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `combodadat`
+--
+
+INSERT INTO `combodadat` (`id_combodadat`, `id_hoadon`, `id_combo`, `quantity`) VALUES
+(1, 34, 2, 2),
+(2, 34, 3, 1),
+(3, 35, 3, 2),
+(4, 35, 2, 1),
+(5, 36, 3, 2),
+(6, 36, 2, 1),
+(7, 38, 3, 2),
+(8, 38, 2, 1),
+(9, 39, 1, 2),
+(10, 39, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `ghedadat`
+--
+
+CREATE TABLE `ghedadat` (
+  `id_ghedadat` int(11) NOT NULL,
+  `id_hoadon` int(11) NOT NULL,
+  `ten_ghe` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `ghedadat`
+--
+
+INSERT INTO `ghedadat` (`id_ghedadat`, `id_hoadon`, `ten_ghe`) VALUES
+(1, 1, 'G6'),
+(2, 1, 'G7'),
+(9, 28, 'H5'),
+(10, 28, 'H6'),
+(11, 28, 'H7'),
+(12, 29, 'G6'),
+(13, 29, 'G7'),
+(14, 29, 'G8'),
+(27, 34, 'H6'),
+(28, 34, 'H7'),
+(29, 34, 'H8'),
+(30, 35, 'G6'),
+(31, 35, 'G7'),
+(32, 36, 'G8'),
+(33, 36, 'G9'),
+(34, 37, 'I6'),
+(35, 37, 'I7'),
+(36, 38, 'G6'),
+(37, 38, 'G7'),
+(38, 38, 'G8'),
+(39, 39, 'G7'),
+(40, 39, 'G8'),
+(41, 39, 'G9');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `hoadon`
+--
+
+CREATE TABLE `hoadon` (
+  `id_hoadon` int(11) NOT NULL,
+  `id_account` int(11) NOT NULL,
+  `id_phim` int(11) NOT NULL,
+  `giochieu` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `ngaychieu` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `hoadon`
+--
+
+INSERT INTO `hoadon` (`id_hoadon`, `id_account`, `id_phim`, `giochieu`, `ngaychieu`) VALUES
+(1, 1, 1, '11:00 AM', '12 tháng 04'),
+(28, 7, 1, '11:00 AM', '12 tháng 04'),
+(29, 7, 15, '11:00 AM', '12 tháng 04'),
+(34, 7, 3, '11:00 AM', '12 tháng 04'),
+(35, 7, 4, '11:00 AM', '12 tháng 04'),
+(36, 7, 4, '11:00 AM', '12 tháng 04'),
+(37, 7, 4, '11:00 AM', '12 tháng 04'),
+(38, 7, 3, '12:00 AM', '12 tháng 04'),
+(39, 7, 5, '12:00 AM', '14 tháng 04');
 
 -- --------------------------------------------------------
 
@@ -142,6 +243,24 @@ ALTER TABLE `combo`
   ADD PRIMARY KEY (`id_combo`);
 
 --
+-- Chỉ mục cho bảng `combodadat`
+--
+ALTER TABLE `combodadat`
+  ADD PRIMARY KEY (`id_combodadat`);
+
+--
+-- Chỉ mục cho bảng `ghedadat`
+--
+ALTER TABLE `ghedadat`
+  ADD PRIMARY KEY (`id_ghedadat`);
+
+--
+-- Chỉ mục cho bảng `hoadon`
+--
+ALTER TABLE `hoadon`
+  ADD PRIMARY KEY (`id_hoadon`);
+
+--
 -- Chỉ mục cho bảng `phim`
 --
 ALTER TABLE `phim`
@@ -161,13 +280,31 @@ ALTER TABLE `theloai`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id_account` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_account` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `combo`
 --
 ALTER TABLE `combo`
   MODIFY `id_combo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT cho bảng `combodadat`
+--
+ALTER TABLE `combodadat`
+  MODIFY `id_combodadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT cho bảng `ghedadat`
+--
+ALTER TABLE `ghedadat`
+  MODIFY `id_ghedadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT cho bảng `hoadon`
+--
+ALTER TABLE `hoadon`
+  MODIFY `id_hoadon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT cho bảng `phim`
