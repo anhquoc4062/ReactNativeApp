@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image} from 'react-native';
-import icMenu from '../../src/images/icons/ic_menu.png';
-import icSearch from '../../src/images/icons/ic_search.png';
+// import icMenu from '../../src/images/icons/ic_menu.png';
+// import icSearch from '../../src/images/icons/ic_search.png';
+
+const icMenu = require('../../src/images/icons/ic_menu.png');
+const icSearch = require('../../src/images/icons/ic_search.png');
 
 
 const { wHeight } = Dimensions.get("window");

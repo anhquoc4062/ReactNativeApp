@@ -17,14 +17,12 @@ import Checkout from './Components/Checkout/Checkout';
 
 const App = createStackNavigator(
   {
-    
     Home: Home,
     Checkout: Checkout,
     Login: Login,
     ChooseTime: ChooseTime,
     ChooseSeat: ChooseSeat,
     Detail: Detail,
-    
     ChooseCombo: ChooseCombo,
   },
   {

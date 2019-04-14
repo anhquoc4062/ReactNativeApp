@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image} from 'react-native';
-import icBack from '../../src/images/icons/ic_back.png';
+//import icBack from '../../src/images/icons/ic_back.png';
+
+const icBack = require('../../src/images/icons/ic_back.png');
 
 
 const { width, height } = Dimensions.get("window");

@@ -4,13 +4,21 @@ import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import CheckSignIn from '../CheckSignIn';
 import saveToken from '../../src/api/saveToken'
 
-import ProfileIcon from '../../src/images/icons/profile.png';
-import HomeIcon from '../../src/images/icons/home.png';
-import EditIcon from '../../src/images/icons/edit.png';
-import GiftIcon from '../../src/images/icons/gift.png';
-import InfoIcon from '../../src/images/icons/info.png';
-import SpecialIcon from '../../src/images/icons/info.png';
-import PhotoIcon from '../../src/images/icons/info.png';
+// import ProfileIcon from '../../src/images/icons/profile.png';
+// import HomeIcon from '../../src/images/icons/home.png';
+// import EditIcon from '../../src/images/icons/edit.png';
+// import GiftIcon from '../../src/images/icons/gift.png';
+// import InfoIcon from '../../src/images/icons/info.png';
+// import SpecialIcon from '../../src/images/icons/star.png';
+// import PhotoIcon from '../../src/images/icons/photo.png';
+
+const ProfileIcon = require('../../src/images/icons/profile.png');
+const HomeIcon = require('../../src/images/icons/home.png');
+const EditIcon = require('../../src/images/icons/edit.png');
+const GiftIcon = require('../../src/images/icons/gift.png');
+const InfoIcon = require('../../src/images/icons/info.png');
+const SpecialIcon = require('../../src/images/icons/star.png');
+const PhotoIcon = require('../../src/images/icons/photo.png');
 
 export default class Shop extends Component{
 

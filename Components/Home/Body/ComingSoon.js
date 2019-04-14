@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Dimensions, Image, TouchableNativeFeedback} from 'react-native';
 import Global from '../../../Globals';
 
-import Poster1 from '../../../src/images/posters/haiphuong.jpg';
-
 
 const { height, width } = Dimensions.get("window");
 

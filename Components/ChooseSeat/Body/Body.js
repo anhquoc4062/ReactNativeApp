@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { ScrollView, TouchableWithoutFeedback,  } from 'react-native-gesture-handler';
+import Global from '../../../Globals'
 
 
 const { width, height } = Dimensions.get("window");
@@ -13,9 +14,46 @@ export default class Body extends Component{
         this.state = {
             seats: [],
             disabledSeats: [],
-            takenSeats: [],//example,
+            takenSeats: ['H1', 'H2'],//example,
+            loading: false,
             selectedSeats: []
         }
+    }
+
+    setTakenSeat(){
+        const {navigation} = this.props;
+        const {seats, selectedSeats} = this.state;
+        const selectedTime = navigation.getParam('selectedTime', '');
+        const selectedDate = navigation.getParam('selectedDate', '');
+        const movieId = navigation.getParam('movieId', -1);
+        const movieName = navigation.getParam('movieName', '');
+
+        fetch('http://'+Global.API+'/server/getgheconguoi.php', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idphim: movieId,
+                giochieu: selectedTime,
+                ngaychieu: selectedDate,
+            }),
+
+        })
+        .then((response)=>response.json())
+        .then((responseJson)=>{
+            var arr = [];
+            responseJson.map(item => {
+                arr.push(item.ten_ghe)
+            });
+            this.setState({
+                takenSeats: arr,
+                loading: true
+            },()=>this.generateSeat())
+        })
+        .catch((error)=>(console.log(error)));
+        
     }
 
     generateSeat(){
@@ -50,6 +88,13 @@ export default class Body extends Component{
         });
     }
 
+    
+
+    componentDidMount(){
+        this.setTakenSeat();
+        
+    }
+
     updateParentState(total, selectedSeat){
         this.props.updateParentState(total, selectedSeat);
     }
@@ -69,10 +114,7 @@ export default class Body extends Component{
         }
     }
 
-    componentDidMount(){
-        this.generateSeat();
-        
-    }
+    
 
     renderSeat(item){
         if(item.disabled == 0){
@@ -106,9 +148,9 @@ export default class Body extends Component{
     }
 
     render(){
-
+        
         const {navigation} = this.props;
-        const {seats, selectedSeats} = this.state;
+        const {seats, selectedSeats, takenSeats} = this.state;
         const selectedTime = navigation.getParam('selectedTime', '');
         const selectedDate = navigation.getParam('selectedDate', '');
         const movieId = navigation.getParam('movieId', -1);

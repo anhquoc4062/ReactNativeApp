@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView, Image, Dimensions, TouchableOpacity} from 'react-native';
 import YouTube from 'react-native-youtube';
 import Global from '../../Globals';
-import PlayIcon from '../../src/images/icons/play.png';
 import getToken from '../../src/api/getToken';
+
+const PlayIcon = require('../../src/images/icons/play.png');
 
 export default class Detail extends Component {
 
