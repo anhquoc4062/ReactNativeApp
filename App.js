@@ -14,10 +14,12 @@ import ChooseSeat from './Components/ChooseSeat/ChooseSeat';
 import ChooseCombo from './Components/ChooseCombo/ChooseCombo';
 import Checkout from './Components/Checkout/Checkout';
 import SearchMovie from './Components/SearchMovie/SearchMovie';
+import Profile from './Components/Profile/Profile';
 
 
 const App = createStackNavigator(
   {
+    Profile: Profile,
     Home: Home,
     SearchMovie: SearchMovie,
     Checkout: Checkout,
