@@ -68,7 +68,7 @@ export default class Body extends Component {
         return (
           <View style={styles.container}>
             <View style={styles.containerInfo}>
-                <Image style={styles.img} source={{uri: "http://"+Global.API+"/server/uploads/poster/"+moviePoster}}/>
+                <Image style={styles.img} source={{uri: "http://"+Global.API+"/server/uploads/posters/"+moviePoster}}/>
                 <View style={styles.containerText}>
                 <Text style={styles.txtHeader}>{movieName}</Text>
                 <Text style={{ fontSize: 13, color: '#C2C1C5'}}>Ngày {selectedDate}</Text>

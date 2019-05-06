@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image} from 'react-native';
-const icBack = require('../../src/images/icons/ic_back.png');
+import Global from '../../Globals'
+const icBack = "http://"+Global.API+"/server/uploads/icon/ic_back.png";
 
 const { wHeight } = Dimensions.get("window");
 
@@ -13,7 +14,7 @@ export default class Header extends Component{
 
                 <View style={styles.iconWrapper}>
                     <TouchableOpacity onPress={()=>navigation.goBack()} >
-                        <Image style={styles.iconStyle} source={icBack}></Image>
+                        <Image style={styles.iconStyle} source={{uri: icBack}}></Image>
                     </TouchableOpacity>
                 </View>
             </View>

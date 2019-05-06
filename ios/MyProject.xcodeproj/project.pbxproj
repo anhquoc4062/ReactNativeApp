@@ -43,6 +43,7 @@
 		B7D3D496E14944C8BADB8F2F /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BE3E52B299B444B9881D3F0 /* libRNGestureHandler-tvOS.a */; };
 		9FEB780512E6415F8A0453CB /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E71DF15A5E4377BBDC959B /* libBVLinearGradient.a */; };
 		E197022C2E8D47B2956E2FFE /* libRCTYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 332CDF237FEA47139A3756D7 /* libRCTYouTube.a */; };
+		32870A54727E43469012944D /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1DE2089FA184E539422B368 /* Ionicons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,6 +358,7 @@
 		94E71DF15A5E4377BBDC959B /* libBVLinearGradient.a */ = {isa = PBXFileReference; name = "libBVLinearGradient.a"; path = "libBVLinearGradient.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		E14CED1A8A4D481582FBC24C /* RCTYouTube.xcodeproj */ = {isa = PBXFileReference; name = "RCTYouTube.xcodeproj"; path = "../node_modules/react-native-youtube/RCTYouTube.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		332CDF237FEA47139A3756D7 /* libRCTYouTube.a */ = {isa = PBXFileReference; name = "libRCTYouTube.a"; path = "libRCTYouTube.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		D1DE2089FA184E539422B368 /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -632,6 +634,7 @@
 		19E05C20137249D29E3D6316 /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
+				D1DE2089FA184E539422B368 /* Ionicons.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1083,6 +1086,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				32870A54727E43469012944D /* Ionicons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

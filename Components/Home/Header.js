@@ -3,8 +3,9 @@ import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Imag
 // import icMenu from '../../src/images/icons/ic_menu.png';
 // import icSearch from '../../src/images/icons/ic_search.png';
 
-const icMenu = require('../../src/images/icons/ic_menu.png');
-const icSearch = require('../../src/images/icons/ic_search.png');
+import Global from '../../Globals'
+const icSearch = "http://"+Global.API+"/server/uploads/icon/ic_search.png";
+const icMenu = "http://"+Global.API+"/server/uploads/icon/ic_menu.png";
 
 
 const { wHeight } = Dimensions.get("window");
@@ -17,10 +18,10 @@ export default class Header extends Component{
 
                 <View style={styles.iconWrapper}>
                     <TouchableOpacity onPress={this.props.onOpen}>
-                        <Image style={styles.iconStyle} source={icMenu}></Image>
+                        <Image style={styles.iconStyle} source={{uri: icMenu}}></Image>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image style={styles.iconStyle} source={icSearch}></Image>
+                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('SearchMovie')}>
+                        <Image style={styles.iconStyle} source={{uri:icSearch}}></Image>
                     </TouchableOpacity>
                 </View>
             </View>

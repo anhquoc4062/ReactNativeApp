@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { ScrollView, TouchableWithoutFeedback,  } from 'react-native-gesture-handler';
 import Global from '../../../Globals'
@@ -16,7 +16,8 @@ export default class Body extends Component{
             disabledSeats: [],
             takenSeats: ['H1', 'H2'],//example,
             loading: false,
-            selectedSeats: []
+            selectedSeats: [],
+            isLoading: true
         }
     }
 
@@ -49,7 +50,8 @@ export default class Body extends Component{
             });
             this.setState({
                 takenSeats: arr,
-                loading: true
+                loading: true,
+                isLoading: false
             },()=>this.generateSeat())
         })
         .catch((error)=>(console.log(error)));
@@ -155,6 +157,26 @@ export default class Body extends Component{
         const selectedDate = navigation.getParam('selectedDate', '');
         const movieId = navigation.getParam('movieId', -1);
         const movieName = navigation.getParam('movieName', '');
+
+        let seatJSX;
+        if(this.state.isLoading == true){
+            seatJSX = (<View style={{flex: 1, padding: 20}}>
+                <ActivityIndicator/>
+            </View>)
+        }
+        else{
+
+            seatJSX = (
+                <View style={styles.seatContainer}>
+                    {seats.map(item=>(
+                        <View style={styles.seatItem} key={item.name}>
+                            {this.renderSeat(item)}
+                        </View>    
+                    ))}
+                </View>
+            )
+        }
+
         return(
             <View style={styles.wrapper}>
                 <View style={styles.infoContainer}> 
@@ -176,15 +198,7 @@ export default class Body extends Component{
                         <Text style={styles.seatStatusText}>Đã chọn</Text>
                     </View>
                 </View>
-                <View style={styles.seatContainer}>
-                    {seats.map(item=>(
-                        <View style={styles.seatItem} key={item.name}>
-                            {this.renderSeat(item)}
-                            
-                        </View>
-                    ))}
-                    
-                </View>
+                {seatJSX}
             </View>
         )
             

@@ -13,11 +13,13 @@ import ChooseTime from './Components/ChooseTime/ChooseTime';
 import ChooseSeat from './Components/ChooseSeat/ChooseSeat';
 import ChooseCombo from './Components/ChooseCombo/ChooseCombo';
 import Checkout from './Components/Checkout/Checkout';
+import SearchMovie from './Components/SearchMovie/SearchMovie';
 
 
 const App = createStackNavigator(
   {
     Home: Home,
+    SearchMovie: SearchMovie,
     Checkout: Checkout,
     Login: Login,
     ChooseTime: ChooseTime,

@@ -4,7 +4,7 @@ import YouTube from 'react-native-youtube';
 import Global from '../../Globals';
 import getToken from '../../src/api/getToken';
 
-const PlayIcon = require('../../src/images/icons/play.png');
+const PlayIcon = "http://"+Global.API+"/server/uploads/icon/play.png";
 
 export default class Detail extends Component {
 
@@ -53,6 +53,7 @@ export default class Detail extends Component {
     if(id_theloai == 1){
       getToken()
       .then(token => {
+        console.log('token at detail', token);
         if(token != ''){
           this.props.navigation.navigate('ChooseTime',{
             'movieId': id_phim,
@@ -103,7 +104,7 @@ export default class Detail extends Component {
                   
             
             <TouchableOpacity style={styles.playButton} onPress={()=>this.playVideo()}>
-                <Image source={PlayIcon} style={{width: 50, height: 50}} />
+                <Image source={{uri: PlayIcon}} style={{width: 50, height: 50}} />
                 
             </TouchableOpacity>
             </View>
@@ -113,7 +114,7 @@ export default class Detail extends Component {
             </View>
             <View style={styles.line}></View>
             <View style={{flexDirection: 'row'}}>
-              <Image style={{  margin: 20, width: 140, height: 200}} source={{uri: "http://"+Global.API+"/server/uploads/poster/"+item.hinh_phim}}/>
+              <Image style={{  margin: 20, width: 140, height: 200}} source={{uri: "http://"+Global.API+"/server/uploads/posters/"+item.hinh_phim}}/>
               <View style={styles.txtContainer}>
                 <Text style={styles.txtFont2}><Text style={styles.txtFont3}>Thời lượng:</Text> {item.thoiluong_phim} phút</Text>
                 <Text style={styles.txtFont2}><Text style={styles.txtFont3}>Đạo diễn:</Text> James Wang</Text>

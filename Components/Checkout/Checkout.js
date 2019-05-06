@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image, Alert} from 'react-native';
 import Header from '../Checkout/Header';
 import Body from './Body/Body';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -38,8 +38,27 @@ export default class Checkout extends Component{
         })
         .then((response)=>response.text())
         .then((responseJson)=>{
-            console.log('response', responseJson);
-            
+            console.log('checkout response', responseJson)
+            if(responseJson == 'SUCCESS'){
+                Alert.alert(
+                    'Thông báo',
+                    'Thanh toán thành công',
+                    [
+                      {text: 'OK', onPress: () => console.log('pressed')}
+                    ],
+                    {cancelable: false},
+                  );
+            }
+            else{
+                Alert.alert(
+                    'Thông báo',
+                    'Thanh toán thất bại',
+                    [
+                      {text: 'OK', onPress: () => console.log('pressed')}
+                    ],
+                    {cancelable: false},
+                  );
+            }
         })
         .catch((error)=>(console.log(error)));
     }
@@ -58,17 +77,29 @@ export default class Checkout extends Component{
             if(res.token != 'ERROR'){
                 accountId = res.id
             }
-            
+            console.log(res);
         })
         .then(()=>{
             //post data here
-            //console.log('accountId' ,accountId);
+            console.log('accountId' ,accountId);
 
             this.postData(movieId, accountId, JSON.stringify(selectedSeats), JSON.stringify(selectedCombo), selectedTime, selectedDate);
             navigation.popToTop();
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log('error' ,error));
 
+    }
+
+    alertCheckout(){
+        Alert.alert(
+            'Thông báo',
+            'Xác nhận đặt vé',
+            [
+              {text: 'Xác nhận', onPress: () => this.bookingConfirm()},
+              {text: 'Hủy', onPress: () => console.log('OK Pressed')}
+            ],
+            {cancelable: false},
+          );
     }
 
     render(){
@@ -80,7 +111,7 @@ export default class Checkout extends Component{
                     <Body navigation= {navigation} />
                     
                 </ScrollView>
-                <TouchableOpacity style={styles.button} onPress={()=>this.bookingConfirm()}>
+                <TouchableOpacity style={styles.button} onPress={()=>this.alertCheckout()}>
                     <Text style={styles.buttonText}>XÁC NHẬN</Text>
                 </TouchableOpacity>
             </View>

@@ -2,23 +2,16 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import CheckSignIn from '../CheckSignIn';
-import saveToken from '../../src/api/saveToken'
+import saveToken from '../../src/api/saveToken';
+import Global from '../../Globals';
 
-// import ProfileIcon from '../../src/images/icons/profile.png';
-// import HomeIcon from '../../src/images/icons/home.png';
-// import EditIcon from '../../src/images/icons/edit.png';
-// import GiftIcon from '../../src/images/icons/gift.png';
-// import InfoIcon from '../../src/images/icons/info.png';
-// import SpecialIcon from '../../src/images/icons/star.png';
-// import PhotoIcon from '../../src/images/icons/photo.png';
-
-const ProfileIcon = require('../../src/images/icons/profile.png');
-const HomeIcon = require('../../src/images/icons/home.png');
-const EditIcon = require('../../src/images/icons/edit.png');
-const GiftIcon = require('../../src/images/icons/gift.png');
-const InfoIcon = require('../../src/images/icons/info.png');
-const SpecialIcon = require('../../src/images/icons/star.png');
-const PhotoIcon = require('../../src/images/icons/photo.png');
+const HomeIcon = "http://"+Global.API+"/server/uploads/icon/home.png";
+const ProfileIcon = "http://"+Global.API+"/server/uploads/icon/profile.png";
+const EditIcon = "http://"+Global.API+"/server/uploads/icon/edit.png";
+const GiftIcon = "http://"+Global.API+"/server/uploads/icon/gift.png";
+const InfoIcon = "http://"+Global.API+"/server/uploads/icon/info.png";
+const SpecialIcon = "http://"+Global.API+"/server/uploads/icon/star.png";
+const PhotoIcon = "http://"+Global.API+"/server/uploads/icon/photo.png";
 
 export default class Shop extends Component{
 
@@ -61,44 +54,44 @@ export default class Shop extends Component{
         const mainJSX = this.state.isLoggedIn ? logoutJSX: logintJSX;
         return(
             <View style={styles.wrapper}>
-                <Image source={ProfileIcon} style={styles.icon}/>
+                <Image source={{uri: ProfileIcon}} style={styles.icon}/>
                 <Text style={styles.profileName}>{this.state.profileName}</Text>
                 <View>
                     {mainJSX}
                     <View style={styles.iconWrapper}>
                         <TouchableOpacity >
                             <View style={styles.iconContainer}>
-                                <Image source={HomeIcon} style={{height: 30, width: 30}}/>
+                                <Image source={{uri: HomeIcon}} style={{height: 30, width: 30}}/>
                                 <Text style={{textAlign: 'center', fontSize: 13, fontWeight: 'bold', marginTop: 5, color: '#fff'}}>Trang chủ</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity >
                             <View style={styles.iconContainer}>
-                                <Image source={EditIcon} style={{height: 30, width: 30}}/>
+                                <Image source={{uri: EditIcon}} style={{height: 30, width: 30}}/>
                                 <Text style={{textAlign: 'center', fontSize: 13, fontWeight: 'bold', marginTop: 5, color: '#fff'}}>Thành viên</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity >
                             <View style={styles.iconContainer}>
-                                <Image source={InfoIcon} style={{height: 30, width: 30}}/>
+                                <Image source={{uri: InfoIcon}} style={{height: 30, width: 30}}/>
                                 <Text style={{textAlign: 'center', fontSize: 13, fontWeight: 'bold', marginTop: 5, color: '#fff'}}>Rạp TLE</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity >
                             <View style={styles.iconContainer}>
-                                <Image source={SpecialIcon} style={{height: 30, width: 30}}/>
+                                <Image source={{uri: SpecialIcon}} style={{height: 30, width: 30}}/>
                                 <Text style={{textAlign: 'center', fontSize: 13, fontWeight: 'bold', marginTop: 5, color: '#fff'}}>Đặc biệt</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity >
                             <View style={styles.iconContainer}>
-                                <Image source={GiftIcon} style={{height: 30, width: 30}}/>
+                                <Image source={{uri: GiftIcon}} style={{height: 30, width: 30}}/>
                                 <Text style={{textAlign: 'center', fontSize: 13, fontWeight: 'bold', marginTop: 5, color: '#fff'}}>Ưu đãi</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity >
                             <View style={styles.iconContainer}>
-                                <Image source={PhotoIcon} style={{height: 30, width: 30}}/>
+                                <Image source={{uri: PhotoIcon}} style={{height: 30, width: 30}}/>
                                 <Text style={{textAlign: 'center', fontSize: 13, fontWeight: 'bold', marginTop: 5, color: '#fff'}}>Gallery</Text>
                             </View>
                         </TouchableOpacity>

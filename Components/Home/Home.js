@@ -16,12 +16,12 @@ export default class Main extends Component{
         getToken()
         .then(token => checkLogin(token))
         .then(res => {
+            console.log(res);
             if(res.token != 'ERROR'){
                 CheckSignIn.onSignIn(res.username)
             }
-            
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log('error at home', error));
     }   
 
     closeControlPanel = () => {

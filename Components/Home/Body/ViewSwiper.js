@@ -1,29 +1,31 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Image} from 'react-native';
 
+import Global from '../../../Globals'
 
 import Swiper from 'react-native-swiper';
-
-//import Slide1 from '../../../src/images/slides/hobbit-wide-banner_02.jpg';
-//import Slide2 from '../../../src/images/slides/inception_movie_poster_banner_04.jpg';
-//import Slide3 from '../../../src/images/slides/twilight-movie-wide.jpg';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
-const Slide1 = require('../../../src/images/slides/hobbit-wide-banner_02.jpg');
-const Slide2 = require('../../../src/images/slides/inception_movie_poster_banner_04.jpg');
-const Slide3 = require('../../../src/images/slides/twilight-movie-wide.jpg');
-
+const Slide1 = "http://"+Global.API+"/server/uploads/slide/art-50k_happy-ending---chi-tro-ly-cua-anh_980-x-448.jpg";
+const Slide2 = "http://"+Global.API+"/server/uploads/slide/banner.jpg";
+const Slide3 = "http://"+Global.API+"/server/uploads/slide/chi-muoi-ba_sneak_980-x-448.jpg";
+const Slide4 = "http://"+Global.API+"/server/uploads/slide/hobbit-wide-banner_02.jpg";
+const Slide5 = "http://"+Global.API+"/server/uploads/slide/inception_movie_poster_banner_04.jpg";
+const Slide6 = "http://"+Global.API+"/server/uploads/slide/twilight-movie-wide.jpg";
 export default class ViewSwiper extends Component{
 
     render(){
         return(
             <View style={styles.wrapper}>
                 <Swiper activeDotColor='#ffffff' dotStyle={{borderColor:'white', borderWidth: 1 }}>
-                    <Image source={Slide1} style={styles.banner}></Image>
-                    <Image source={Slide2} style={styles.banner}></Image>   
-                    <Image source={Slide3} style={styles.banner}></Image>
+                    <Image source={{uri: Slide1}} style={styles.banner}></Image>
+                    <Image source={{uri: Slide2}} style={styles.banner}></Image>   
+                    <Image source={{uri: Slide3}} style={styles.banner}></Image>
+                    <Image source={{uri: Slide4}} style={styles.banner}></Image>
+                    <Image source={{uri: Slide5}} style={styles.banner}></Image>
+                    <Image source={{uri: Slide6}} style={styles.banner}></Image>
                 </Swiper>
             </View>
             

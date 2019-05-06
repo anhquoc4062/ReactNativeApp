@@ -19,7 +19,7 @@ export default class Shop extends Component{
         const {navigation} = this.props;
         return(
             <ScrollView style={styles.wrapper}>
-                <Header onOpen={this.openMenu.bind(this)}/>
+                <Header onOpen={this.openMenu.bind(this)} navigation={navigation}/>
 
                 <Body navigation={navigation}/>
                 

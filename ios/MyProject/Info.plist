@@ -54,6 +54,8 @@
 		</dict>
 	</dict>
 	<key>UIAppFonts</key>
-	<array/>
+	<array>
+		<string>Ionicons.ttf</string>
+	</array>
 </dict>
 </plist>

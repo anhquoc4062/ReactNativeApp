@@ -39,7 +39,7 @@ export default class ComingSoon extends Component{
                             movieId: item.id_phim,
                         })}>
                             <View style={styles.card} >
-                                <Image source={{uri: "http://"+Global.API+"/server/uploads/poster/"+item.hinh_phim}} style={styles.poster}/>
+                                <Image source={{uri: "http://"+Global.API+"/server/uploads/posters/"+item.hinh_phim}} style={styles.poster}/>
                                 <View style={styles.caption}>
                                     <Text style={{color: '#C2C1C5', fontWeight: '700', fontSize: 13, textAlign: 'center'}}>{item.ten_phim}</Text>
                                         <View style={{flexDirection:'row', marginTop: 5}}>

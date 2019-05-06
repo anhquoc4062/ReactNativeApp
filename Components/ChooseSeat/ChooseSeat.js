@@ -12,7 +12,7 @@ export default class ChooseSeat extends Component{
         super(props);
         this.state = {
             total : 0,
-            selectedSeats: []
+            selectedSeats: [],
         }
     }
 
@@ -57,7 +57,6 @@ export default class ChooseSeat extends Component{
             })
         }
 
-        
     }
 
 
