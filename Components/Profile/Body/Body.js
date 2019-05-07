@@ -104,7 +104,9 @@ export default class App extends Component {
             <Text style={styles.text}>Thay đổi mật khẩu</Text>
           </View>
           <View style={styles.line}/>
-            <TouchableOpacity style={{flexDirection: 'row'}}>
+            <TouchableOpacity style={{flexDirection: 'row'}} onPress={()=>this.props.navigation.navigate('BookedMovie',{
+              idAccount: idAccount
+            })}>
               <Text style={styles.text}>Phim đã đặt</Text>
             </TouchableOpacity>
         </ScrollView>

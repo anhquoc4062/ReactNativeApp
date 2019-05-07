@@ -15,11 +15,13 @@ import ChooseCombo from './Components/ChooseCombo/ChooseCombo';
 import Checkout from './Components/Checkout/Checkout';
 import SearchMovie from './Components/SearchMovie/SearchMovie';
 import Profile from './Components/Profile/Profile';
+import BookedMovie from './Components/BookedMovie/BookedMovie';
 
 
 const App = createStackNavigator(
   {
     Home: Home,
+    BookedMovie: BookedMovie,
     Profile: Profile,
     SearchMovie: SearchMovie,
     Checkout: Checkout,
