@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import CheckSignIn from '../CheckSignIn';
 import saveToken from '../../src/api/saveToken';
+import getToken from '../../src/api/getToken';
+import checkLogin from '../../src/api/checkLogin';
 import Global from '../../Globals';
 
 const HomeIcon = "http://"+Global.API+"/server/uploads/icon/home.png";
@@ -39,6 +41,25 @@ export default class Shop extends Component{
         saveToken('');
     }
 
+    goToProfile(){
+        getToken()
+        .then(token => checkLogin(token))
+        .then(res => {
+            console.log(res);
+            if(res.token != 'ERROR'){
+                this.props.navigation.navigate('Profile',{
+                    idAccount: res.id,
+                    username: res.username,
+                    email: res.email
+                });
+            }
+            else{
+                this.props.navigation.navigate('Login');
+            }
+        })
+        .catch(error => console.log('error at home', error));
+    }
+
     render(){
         
         const logintJSX = (
@@ -65,7 +86,7 @@ export default class Shop extends Component{
                                 <Text style={{textAlign: 'center', fontSize: 13, fontWeight: 'bold', marginTop: 5, color: '#fff'}}>Trang chủ</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity >
+                        <TouchableOpacity onPress={()=>this.goToProfile()}>
                             <View style={styles.iconContainer}>
                                 <Image source={{uri: EditIcon}} style={{height: 30, width: 30}}/>
                                 <Text style={{textAlign: 'center', fontSize: 13, fontWeight: 'bold', marginTop: 5, color: '#fff'}}>Thành viên</Text>

@@ -19,7 +19,16 @@ export default class Checkout extends Component{
         
     }
 
-    postData(idphim, idaccount, ghedachon, combodachon, giochieu, ngaychieu){
+    postData(idphim, idaccount, ghedachon, combodachon, giochieu, ngaychieu, tongtien){
+        console.log('post', JSON.stringify({
+            idphim: idphim,
+            idaccount: idaccount,
+            ghedachon: ghedachon,
+            combodachon: combodachon,
+            giochieu: giochieu,
+            ngaychieu: ngaychieu,
+            tongtien: tongtien
+        }));
         fetch('http://'+Global.API+'/server/confirmcheckout.php', {
             method: 'POST',
             headers: {
@@ -32,7 +41,8 @@ export default class Checkout extends Component{
                 ghedachon: ghedachon,
                 combodachon: combodachon,
                 giochieu: giochieu,
-                ngaychieu: ngaychieu
+                ngaychieu: ngaychieu,
+                tongtien: tongtien
             }),
 
         })
@@ -70,6 +80,8 @@ export default class Checkout extends Component{
         const selectedTime = navigation.getParam('selectedTime', '');
         const selectedDate = navigation.getParam('selectedDate', '');
         const movieId = navigation.getParam('movieId', -1);
+        const totalCosts = navigation.getParam('totalCosts', 0);
+        console.log('checkout', totalCosts);
         var accountId = '';
         getToken()
         .then(token => checkLogin(token))
@@ -83,7 +95,7 @@ export default class Checkout extends Component{
             //post data here
             console.log('accountId' ,accountId);
 
-            this.postData(movieId, accountId, JSON.stringify(selectedSeats), JSON.stringify(selectedCombo), selectedTime, selectedDate);
+            this.postData(movieId, accountId, JSON.stringify(selectedSeats), JSON.stringify(selectedCombo), selectedTime, selectedDate, totalCosts);
             navigation.popToTop();
         })
         .catch(error => console.log('error' ,error));

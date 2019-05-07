@@ -15,7 +15,6 @@ export default class ChooseSeat extends Component{
     render(){
         const { navigation } = this.props;
         
-        
         return(
             <View style={styles.wrapper}>
                 <ScrollView>

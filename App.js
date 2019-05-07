@@ -19,8 +19,8 @@ import Profile from './Components/Profile/Profile';
 
 const App = createStackNavigator(
   {
-    Profile: Profile,
     Home: Home,
+    Profile: Profile,
     SearchMovie: SearchMovie,
     Checkout: Checkout,
     Login: Login,

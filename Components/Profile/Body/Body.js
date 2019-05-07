@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, Image, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableHighlight} from 'react-native';
 import Global from '../../../Globals';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity,  } from 'react-native-gesture-handler';
 
 const ProfileIcon = "http://"+Global.API+"/server/uploads/icon/profile.png";
 import ImagePicker from 'react-native-image-picker';
@@ -11,6 +11,7 @@ export default class App extends Component {
         super(props);
         this.state = {
             avatarSource: null,
+            totalConsume: 0
         }
         this.selectImage = this.selectImage.bind(this);
     }
@@ -45,7 +46,30 @@ export default class App extends Component {
       });
            
     } 
+    componentDidMount(){
+      const idAccount = this.props.navigation.getParam('idAccount', -1);
+      return fetch('http://'+Global.API+'/server/getbookedmovie.php?idaccount=' + idAccount)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            var total = 0;
+            responseJson.map(item => {
+              total+=parseFloat(item.tongtien);
+            })
+
+            this.setState({
+              totalConsume: total
+            })
+        })
+        .catch((error) =>{
+            console.error(error);
+        });
+
+    }
   render() {
+    const {navigation} = this.props;
+    const idAccount = navigation.getParam('idAccount', -1);
+    const username = navigation.getParam('username', '');
+    const email = navigation.getParam('email', '');
     return (
       <View style={{flex: 1}}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -56,21 +80,21 @@ export default class App extends Component {
 
                 </TouchableOpacity>
             </View>
-            <Text style={styles.username}>Anh Quốc</Text>
+            <Text style={styles.username}>{username}</Text>
             <View style={{marginTop: 20, alignItems: 'center'}}>
                 <Text style={{fontSize: 15, fontWeight:'bold', color:'#F66280'}}>Tổng chi tiêu</Text>
-                <Text style={{fontSize: 30, fontWeight:'bold', color:'#C2C1C5'}}>$900</Text>
+                <Text style={{fontSize: 30, fontWeight:'bold', color:'#C2C1C5'}}>${this.state.totalConsume}</Text>
             </View>
           </View>
           <View style={{backgroundColor: '#2E2E38'}}>
             <Text style={styles.headerText}>Thông tin tài khoản</Text>
         </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.text}>anhquoc4062</Text>
+            <Text style={styles.text}>{username}</Text>
           </View>
           <View style={styles.line}/>
           <View style={{flexDirection: 'row'}}>
-            <Text style={styles.text}>abc@gmail.com</Text>
+            <Text style={styles.text}>{email}</Text>
           </View>
           <View style={styles.line}/>
           <View style={{backgroundColor: '#2E2E38'}}>
@@ -80,9 +104,9 @@ export default class App extends Component {
             <Text style={styles.text}>Thay đổi mật khẩu</Text>
           </View>
           <View style={styles.line}/>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.text}>Phim đã đặt</Text>
-          </View>
+            <TouchableOpacity style={{flexDirection: 'row'}}>
+              <Text style={styles.text}>Phim đã đặt</Text>
+            </TouchableOpacity>
         </ScrollView>
       </View>
     );
