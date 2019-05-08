@@ -50,7 +50,8 @@ export default class Shop extends Component{
                 this.props.navigation.navigate('Profile',{
                     idAccount: res.id,
                     username: res.username,
-                    email: res.email
+                    email: res.email,
+                    avatar: res.avatar
                 });
             }
             else{
@@ -124,11 +125,6 @@ export default class Shop extends Component{
             
     };
 }
-
-/*<TouchableOpacity onPress={()=>this.props.navigation.navigate('Authentication')}>
-                    <Text>Go to Authencation</Text>
-                </TouchableOpacity>*/
-
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: '#1e272e',

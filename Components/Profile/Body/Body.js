@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableHighlight} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableHighlight, Alert} from 'react-native';
 import Global from '../../../Globals';
 import { TouchableOpacity,  } from 'react-native-gesture-handler';
 
 const ProfileIcon = "http://"+Global.API+"/server/uploads/icon/profile.png";
 import ImagePicker from 'react-native-image-picker';
+import RNFetchBlob from 'react-native-fetch-blob';
 
 export default class App extends Component {
     constructor(props){
         super(props);
         this.state = {
-            avatarSource: null,
-            totalConsume: 0
+            currentAvatar: null,
+            modifiedAvatar: null,
+            totalConsume: 0,
+            data: null
         }
         this.selectImage = this.selectImage.bind(this);
     }
@@ -25,8 +28,7 @@ export default class App extends Component {
       };
     
       ImagePicker.showImagePicker(options, (response) => {
-        console.log('Response = ', response);
-  
+        console.log(response);
         if (response.didCancel) {
           console.log('User cancelled photo picker');
         } else if (response.error) {
@@ -40,12 +42,84 @@ export default class App extends Component {
           // let source = { uri: 'data:image/jpeg;base64,' + response.data };
   
           this.setState({
-            avatarSource: source,
+            modifiedAvatar: source,
+            data: response.data
           });
         }
       });
            
     } 
+
+    uploadImage(){
+      RNFetchBlob.fetch('POST', 'http://'+Global.API+'/server/uploadimage.php', {
+        Authorization : "Bearer access-token",
+        otherHeader : "foo",
+        'Content-Type' : 'multipart/form-data',
+      },
+      [
+          { name : 'image', filename : 'image.png', type:'image/jpeg', data: this.state.data}
+      ]).then((resp) => {
+        if(JSON.parse(resp.data).Message == 'Success'){
+          const idAccount = this.props.navigation.getParam('idAccount', -1);
+          this.changeAvatar(JSON.parse(resp.data).filename, idAccount);
+
+        }
+        else{
+          Alert.alert(
+            'Thông báo',
+            'Upload ảnh thất bại',
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );
+        }
+      }).catch((err) => {
+        // ...
+      })
+    }
+
+    changeAvatar(imgname, idaccount){
+      fetch('http://'+Global.API+'/server/updateavatar.php', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imgname: imgname,
+          idaccount: idaccount,
+        }),
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log('log chỗ update', responseJson);
+        if(responseJson.Message == 'Success'){
+          Alert.alert(
+            'Thông báo',
+            'Upload ảnh thành công',
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );
+        }
+        else{
+          Alert.alert(
+            'Thông báo',
+            'Upload ảnh thất bại',
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );
+        }
+      })
+      .catch((error) => {
+        console.error('lỗi chỗ update user', error);
+      });;
+    }
+
     componentDidMount(){
       const idAccount = this.props.navigation.getParam('idAccount', -1);
       return fetch('http://'+Global.API+'/server/getbookedmovie.php?idaccount=' + idAccount)
@@ -70,16 +144,28 @@ export default class App extends Component {
     const idAccount = navigation.getParam('idAccount', -1);
     const username = navigation.getParam('username', '');
     const email = navigation.getParam('email', '');
+    const avatar = navigation.getParam('avatar', '');
+    var uriAvatar;
+    if(avatar!=''){
+      uriAvatar = {uri: "http://"+Global.API+"/server/uploads/avatar/"+avatar}
+    }
+    else{
+      uriAvatar = {uri: ProfileIcon}
+    }
+
     return (
       <View style={{flex: 1}}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <View style={styles.profileContainer}>
             <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity onPress={this.selectImage.bind(this)}>
-                    <Image source={this.state.avatarSource!=null ? this.state.avatarSource : {uri: ProfileIcon}} style={styles.icon}/>
+                    <Image source={this.state.modifiedAvatar!=null ? this.state.modifiedAvatar : uriAvatar} style={styles.icon}/>
 
                 </TouchableOpacity>
             </View>
+            <TouchableOpacity onPress={this.uploadImage.bind(this)}>
+                  <Text style={styles.upload}>Lưu ảnh</Text>
+                </TouchableOpacity>
             <Text style={styles.username}>{username}</Text>
             <View style={{marginTop: 20, alignItems: 'center'}}>
                 <Text style={{fontSize: 15, fontWeight:'bold', color:'#F66280'}}>Tổng chi tiêu</Text>
@@ -152,5 +238,8 @@ const styles = StyleSheet.create({
     height: 130,
     borderRadius: 100,
     marginTop: 20
-    },
+  },
+  upload: {
+      color: '#F95860'
+  }
 });
