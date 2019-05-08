@@ -21,22 +21,25 @@ export default class Shop extends Component{
         super(props);
         this.state = {
             isLoggedIn: false,
-            profileName: 'Chưa đăng nhập'
+            profileName: 'Chưa đăng nhập',
+            avatar: ''
         }
         CheckSignIn.onSignIn = this.onSignIn.bind(this);
     }
 
-    onSignIn(username){
+    onSignIn(username, avatar){
         this.setState({
             isLoggedIn: true,
-            profileName: username
+            profileName: username,
+            avatar: avatar
         })
     }
 
     onClickLogOut(){
         this.setState({
             isLoggedIn: false,
-            profileName: 'Chưa đăng nhập'
+            profileName: 'Chưa đăng nhập',
+            avatar: ''
         })
         saveToken('');
     }
@@ -76,7 +79,7 @@ export default class Shop extends Component{
         const mainJSX = this.state.isLoggedIn ? logoutJSX: logintJSX;
         return(
             <View style={styles.wrapper}>
-                <Image source={{uri: ProfileIcon}} style={styles.icon}/>
+                <Image source={this.state.avatar != '' ? {uri: "http://"+Global.API+"/server/uploads/avatar/"+this.state.avatar}: {uri: ProfileIcon}} style={styles.icon}/>
                 <Text style={styles.profileName}>{this.state.profileName}</Text>
                 <View>
                     {mainJSX}
@@ -125,6 +128,11 @@ export default class Shop extends Component{
             
     };
 }
+
+/*<TouchableOpacity onPress={()=>this.props.navigation.navigate('Authentication')}>
+                    <Text>Go to Authencation</Text>
+                </TouchableOpacity>*/
+
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: '#1e272e',

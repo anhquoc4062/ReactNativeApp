@@ -18,7 +18,7 @@ export default class Main extends Component{
         .then(res => {
             console.log(res);
             if(res.token != 'ERROR'){
-                CheckSignIn.onSignIn(res.username)
+                CheckSignIn.onSignIn(res.username, res.avatar)
             }
         })
         .catch(error => console.log('error at home', error));

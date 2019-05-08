@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableHighlight, Alert} from 'react-native';
 import Global from '../../../Globals';
 import { TouchableOpacity,  } from 'react-native-gesture-handler';
-
+import Icon from 'react-native-ionicons'
 const ProfileIcon = "http://"+Global.API+"/server/uploads/icon/profile.png";
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'react-native-fetch-blob';
@@ -14,7 +14,8 @@ export default class App extends Component {
             currentAvatar: null,
             modifiedAvatar: null,
             totalConsume: 0,
-            data: null
+            data: null,
+            isModified: false
         }
         this.selectImage = this.selectImage.bind(this);
     }
@@ -43,7 +44,8 @@ export default class App extends Component {
   
           this.setState({
             modifiedAvatar: source,
-            data: response.data
+            data: response.data,
+            isModified: true
           });
         }
       });
@@ -62,7 +64,6 @@ export default class App extends Component {
         if(JSON.parse(resp.data).Message == 'Success'){
           const idAccount = this.props.navigation.getParam('idAccount', -1);
           this.changeAvatar(JSON.parse(resp.data).filename, idAccount);
-
         }
         else{
           Alert.alert(
@@ -74,6 +75,10 @@ export default class App extends Component {
             {cancelable: false},
           );
         }
+        
+        this.setState({
+          isModified: false
+        })
       }).catch((err) => {
         // ...
       })
@@ -152,6 +157,14 @@ export default class App extends Component {
     else{
       uriAvatar = {uri: ProfileIcon}
     }
+    var chooseButtonJSX = (<TouchableOpacity onPress={this.selectImage.bind(this)} style={styles.uploadButton}>
+                        <Text style={styles.upload}>Chọn ảnh</Text>
+                      </TouchableOpacity>);
+    var saveButtonJSX = (<TouchableOpacity onPress={this.uploadImage.bind(this)} style={styles.uploadButton}>
+      <Text style={styles.upload}>Lưu ảnh</Text>
+    </TouchableOpacity>);
+    var buttonJSX = (this.state.isModified == false? chooseButtonJSX: saveButtonJSX);
+    
 
     return (
       <View style={{flex: 1}}>
@@ -163,11 +176,9 @@ export default class App extends Component {
 
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={this.uploadImage.bind(this)}>
-                  <Text style={styles.upload}>Lưu ảnh</Text>
-                </TouchableOpacity>
+            {buttonJSX}
             <Text style={styles.username}>{username}</Text>
-            <View style={{marginTop: 20, alignItems: 'center'}}>
+            <View style={{marginTop: 10, alignItems: 'center'}}>
                 <Text style={{fontSize: 15, fontWeight:'bold', color:'#F66280'}}>Tổng chi tiêu</Text>
                 <Text style={{fontSize: 30, fontWeight:'bold', color:'#C2C1C5'}}>${this.state.totalConsume}</Text>
             </View>
@@ -206,7 +217,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   profileContainer: {
-      height: 300, 
+      height: 330, 
       flexDirection: 'column',
       alignItems: 'center',
     },    
@@ -240,6 +251,15 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   upload: {
-      color: '#F95860'
+    color: '#C2C1C5',
+    fontSize: 13,
+    fontWeight:'bold'
+  },
+  uploadButton: {
+    backgroundColor: '#F95860',
+    marginTop: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 20
   }
 });

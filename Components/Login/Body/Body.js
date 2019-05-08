@@ -79,7 +79,7 @@ export default class LoginView extends Component {
             ],
             {cancelable: false},
           );
-          CheckSignIn.onSignIn(res.username);
+          CheckSignIn.onSignIn(res.username, res.avatar);
           saveToken(res.token);
           navigation.goBack();
 
