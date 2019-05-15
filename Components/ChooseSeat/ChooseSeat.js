@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Imag
 import Header from './Header';
 import Body from './Body/Body';
 import { ScrollView } from 'react-native-gesture-handler';
-
+import LinearGradient from 'react-native-linear-gradient';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
@@ -71,8 +71,11 @@ export default class ChooseSeat extends Component{
                     <Header navigation= {navigation}/>
                     <Body navigation= {navigation} updateParentState = {this.updateState.bind(this)}/>
                 </ScrollView>
-                <TouchableOpacity style={styles.button} onPress={()=>this.goToCombo()}>
-                        <Text style={styles.buttonText}>CHỌN COMBO - ${total}</Text>
+                <TouchableOpacity onPress={()=>this.goToCombo()}>
+                <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#F66280', '#F95860']} style={styles.button}>
+                    <Text style={styles.buttonText}>CHỌN GHẾ</Text>
+                </LinearGradient>
+                        
                     </TouchableOpacity>
             </View>
             
@@ -93,7 +96,6 @@ const styles = StyleSheet.create({
     },
     button: {
         height: 55,
-        backgroundColor: '#F66280',
         justifyContent: 'center',
         alignItems: 'center',
     },

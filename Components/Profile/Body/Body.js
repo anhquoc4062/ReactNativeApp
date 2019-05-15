@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableHighlight, Alert} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Image, ScrollView, TouchableHighlight, Alert, ActivityIndicator} from 'react-native';
 import Global from '../../../Globals';
-import { TouchableOpacity,  } from 'react-native-gesture-handler';
+import { TouchableOpacity, TouchableWithoutFeedback,  } from 'react-native-gesture-handler';
 import Icon from 'react-native-ionicons'
 const ProfileIcon = "http://"+Global.API+"/server/uploads/icon/profile.png";
 import ImagePicker from 'react-native-image-picker';
@@ -15,7 +15,7 @@ export default class App extends Component {
             modifiedAvatar: null,
             totalConsume: 0,
             data: null,
-            isModified: false
+            isModified: 0,//1 is true 0 is false 2 isloading
         }
         this.selectImage = this.selectImage.bind(this);
     }
@@ -45,7 +45,7 @@ export default class App extends Component {
           this.setState({
             modifiedAvatar: source,
             data: response.data,
-            isModified: true
+            isModified: 1
           });
         }
       });
@@ -53,6 +53,9 @@ export default class App extends Component {
     } 
 
     uploadImage(){
+      this.setState({
+        isModified: 2
+      })
       RNFetchBlob.fetch('POST', 'http://'+Global.API+'/server/uploadimage.php', {
         Authorization : "Bearer access-token",
         otherHeader : "foo",
@@ -61,6 +64,7 @@ export default class App extends Component {
       [
           { name : 'image', filename : 'image.png', type:'image/jpeg', data: this.state.data}
       ]).then((resp) => {
+        console.log('log chỗ upload', JSON.parse(resp.data).Message);
         if(JSON.parse(resp.data).Message == 'Success'){
           const idAccount = this.props.navigation.getParam('idAccount', -1);
           this.changeAvatar(JSON.parse(resp.data).filename, idAccount);
@@ -77,7 +81,7 @@ export default class App extends Component {
         }
         
         this.setState({
-          isModified: false
+          isModified: 0
         })
       }).catch((err) => {
         // ...
@@ -140,11 +144,13 @@ export default class App extends Component {
             })
         })
         .catch((error) =>{
-            console.error(error);
+            console.error('error ở body profile', error);
         });
 
     }
   render() {
+    
+    console.log('log for isModified at render', this.state.isModified)
     const {navigation} = this.props;
     const idAccount = navigation.getParam('idAccount', -1);
     const username = navigation.getParam('username', '');
@@ -163,8 +169,21 @@ export default class App extends Component {
     var saveButtonJSX = (<TouchableOpacity onPress={this.uploadImage.bind(this)} style={styles.uploadButton}>
       <Text style={styles.upload}>Lưu ảnh</Text>
     </TouchableOpacity>);
-    var buttonJSX = (this.state.isModified == false? chooseButtonJSX: saveButtonJSX);
-    
+
+    var loadingButtonJSX = (<TouchableWithoutFeedback style={styles.uploadButton}>
+    <ActivityIndicator color="#C2C1C5"/>
+    </TouchableWithoutFeedback>);
+    //var buttonJSX = (this.state.isModified == false? chooseButtonJSX: saveButtonJSX);
+    var buttonJSX = null;
+    if(this.state.isModified == 0){
+      buttonJSX = chooseButtonJSX;
+    }
+    else if (this.state.isModified == 2){
+      buttonJSX = loadingButtonJSX;
+    }
+    else{
+      buttonJSX = saveButtonJSX;
+    }
 
     return (
       <View style={{flex: 1}}>
@@ -258,8 +277,9 @@ const styles = StyleSheet.create({
   uploadButton: {
     backgroundColor: '#F95860',
     marginTop: 5,
-    paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 20
+    borderRadius: 20,
+    width: 100,
+    alignItems: 'center'
   }
 });

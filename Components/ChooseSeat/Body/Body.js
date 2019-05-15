@@ -160,8 +160,8 @@ export default class Body extends Component{
 
         let seatJSX;
         if(this.state.isLoading == true){
-            seatJSX = (<View style={{flex: 1, padding: 20}}>
-                <ActivityIndicator/>
+            seatJSX = (<View style={{flex: 1, padding: 20, justifyContent: 'center', marginTop: 100}}>
+                <ActivityIndicator size="large" color="#F66280"/>
             </View>)
         }
         else{

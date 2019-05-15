@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 14, 2019 lúc 06:11 AM
+-- Thời gian đã tạo: Th5 08, 2019 lúc 04:24 PM
 -- Phiên bản máy phục vụ: 10.1.37-MariaDB
 -- Phiên bản PHP: 7.3.1
 
@@ -32,6 +32,7 @@ CREATE TABLE `account` (
   `id_account` int(11) NOT NULL,
   `username_account` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `email_account` text COLLATE utf8_unicode_ci NOT NULL,
+  `avatar` text COLLATE utf8_unicode_ci NOT NULL,
   `password_account` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -39,9 +40,9 @@ CREATE TABLE `account` (
 -- Đang đổ dữ liệu cho bảng `account`
 --
 
-INSERT INTO `account` (`id_account`, `username_account`, `email_account`, `password_account`) VALUES
-(1, 'anhquoc4062', 'anhquoc4062@gmail.com', 'ce6eee13374e007c3236c2bbd5ba3f62'),
-(7, 'user', 'user@abc', '202cb962ac59075b964b07152d234b70');
+INSERT INTO `account` (`id_account`, `username_account`, `email_account`, `avatar`, `password_account`) VALUES
+(1, 'anhquoc4062', 'anhquoc4062@gmail.com', '703424162_1557325052.jpeg', 'ce6eee13374e007c3236c2bbd5ba3f62'),
+(7, 'user', 'user@abc', '', '202cb962ac59075b964b07152d234b70');
 
 -- --------------------------------------------------------
 
@@ -96,7 +97,11 @@ INSERT INTO `combodadat` (`id_combodadat`, `id_hoadon`, `id_combo`, `quantity`) 
 (7, 38, 3, 2),
 (8, 38, 2, 1),
 (9, 39, 1, 2),
-(10, 39, 2, 2);
+(10, 39, 2, 2),
+(11, 41, 3, 2),
+(12, 41, 2, 1),
+(13, 43, 3, 2),
+(14, 43, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -137,7 +142,14 @@ INSERT INTO `ghedadat` (`id_ghedadat`, `id_hoadon`, `ten_ghe`) VALUES
 (38, 38, 'G8'),
 (39, 39, 'G7'),
 (40, 39, 'G8'),
-(41, 39, 'G9');
+(41, 39, 'G9'),
+(42, 40, 'I7'),
+(43, 40, 'I8'),
+(44, 41, 'I7'),
+(45, 41, 'I8'),
+(46, 42, 'J6'),
+(47, 43, 'G6'),
+(48, 43, 'H7');
 
 -- --------------------------------------------------------
 
@@ -150,23 +162,28 @@ CREATE TABLE `hoadon` (
   `id_account` int(11) NOT NULL,
   `id_phim` int(11) NOT NULL,
   `giochieu` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `ngaychieu` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `ngaychieu` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `tongtien` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `hoadon`
 --
 
-INSERT INTO `hoadon` (`id_hoadon`, `id_account`, `id_phim`, `giochieu`, `ngaychieu`) VALUES
-(1, 1, 1, '11:00 AM', '12 tháng 04'),
-(28, 7, 1, '11:00 AM', '12 tháng 04'),
-(29, 7, 15, '11:00 AM', '12 tháng 04'),
-(34, 7, 3, '11:00 AM', '12 tháng 04'),
-(35, 7, 4, '11:00 AM', '12 tháng 04'),
-(36, 7, 4, '11:00 AM', '12 tháng 04'),
-(37, 7, 4, '11:00 AM', '12 tháng 04'),
-(38, 7, 3, '12:00 AM', '12 tháng 04'),
-(39, 7, 5, '12:00 AM', '14 tháng 04');
+INSERT INTO `hoadon` (`id_hoadon`, `id_account`, `id_phim`, `giochieu`, `ngaychieu`, `tongtien`) VALUES
+(1, 1, 1, '11:00 AM', '12 tháng 04', 25.5),
+(28, 7, 1, '11:00 AM', '12 tháng 04', 15),
+(29, 7, 15, '11:00 AM', '12 tháng 04', 37.5),
+(34, 7, 3, '11:00 AM', '12 tháng 04', 49),
+(35, 7, 4, '11:00 AM', '12 tháng 04', 15),
+(36, 7, 4, '11:00 AM', '12 tháng 04', 75),
+(37, 7, 4, '11:00 AM', '12 tháng 04', 18.5),
+(38, 7, 3, '12:00 AM', '12 tháng 04', 18.5),
+(39, 7, 5, '12:00 AM', '14 tháng 04', 9),
+(40, 0, 4, '11:00 AM', '06 tháng 05', 15),
+(41, 1, 4, '11:00 AM', '07 tháng 05', 19),
+(42, 1, 4, '11:00 AM', '07 tháng 05', 14),
+(43, 1, 3, '11:00 AM', '07 tháng 05', 29.5);
 
 -- --------------------------------------------------------
 
@@ -292,19 +309,19 @@ ALTER TABLE `combo`
 -- AUTO_INCREMENT cho bảng `combodadat`
 --
 ALTER TABLE `combodadat`
-  MODIFY `id_combodadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_combodadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `ghedadat`
 --
 ALTER TABLE `ghedadat`
-  MODIFY `id_ghedadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_ghedadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT cho bảng `hoadon`
 --
 ALTER TABLE `hoadon`
-  MODIFY `id_hoadon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_hoadon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT cho bảng `phim`

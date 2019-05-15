@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, ScrollView, Image, Dimensions, TouchableOpacity,
 import YouTube from 'react-native-youtube';
 import Global from '../../Globals';
 import getToken from '../../src/api/getToken';
+import LinearGradient from 'react-native-linear-gradient';
 
 const PlayIcon = "http://"+Global.API+"/server/uploads/icon/play.png";
 
@@ -130,9 +131,12 @@ export default class Detail extends Component {
               </Text>
             </View>
           </ScrollView>
-          <TouchableOpacity style={styles.boxButton} onPress={()=>this.goToBooking(item.id_phim, item.id_theloai,item.ten_phim, item.banner_phim, item.hinh_phim, item.thoiluong_phim)}>
-              <Text style={{color: '#C2C1C5', fontWeight: 'bold',fontSize: 18}}>ĐẶT VÉ</Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={()=>this.goToBooking(item.id_phim, item.id_theloai,item.ten_phim, item.banner_phim, item.hinh_phim, item.thoiluong_phim)}>
+              
+            <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#F66280', '#F95860']} style={styles.boxButton}>
+                <Text style={{color: '#C2C1C5', fontWeight: 'bold',fontSize: 18}}>ĐẶT VÉ</Text>
+            </LinearGradient>
+            </TouchableOpacity>
           
         </View>
         ))
@@ -157,8 +161,7 @@ const styles = StyleSheet.create({
   boxButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 15,
-    backgroundColor: '#F66280',
+    padding: 15
   },
   txtFont2: {
     color: '#C2C1C5',

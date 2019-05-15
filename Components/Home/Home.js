@@ -14,7 +14,7 @@ export default class Main extends Component{
     
     componentDidMount(){
         getToken()
-        .then(token => checkLogin(token))
+        .then(token =>checkLogin(token))
         .then(res => {
             console.log(res);
             if(res.token != 'ERROR'){
