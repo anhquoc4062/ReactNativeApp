@@ -10,13 +10,17 @@ const { width, height } = Dimensions.get("window");
 
 export default class Header extends Component{
 
+    goToBack(){
+        this.props.navigation.state.params.onGoBack();
+        this.props.navigation.goBack();
+    }
     render(){
         const {navigation} = this.props;
         return(
             <View style={styles.wrapper}>
 
                 <View style={styles.iconWrapper}>
-                    <TouchableOpacity onPress={()=>navigation.goBack()}>
+                    <TouchableOpacity onPress={()=>this.goToBack()}>
                         <Image style={styles.iconStyle} source={{uri: icBack}}></Image>
                     </TouchableOpacity>
                     <Text style={styles.title}>Thành viên</Text>

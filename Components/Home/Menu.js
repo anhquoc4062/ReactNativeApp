@@ -55,11 +55,24 @@ export default class Shop extends Component{
                     idAccount: res.id,
                     username: res.username,
                     email: res.email,
-                    avatar: res.avatar
+                    avatar: res.avatar,
+                    onGoBack: () => this.refresh()
                 });
             }
             else{
                 this.props.navigation.navigate('Login');
+            }
+        })
+        .catch(error => console.log('error at home', error));
+    }
+
+    refresh(){
+        getToken()
+        .then(token =>checkLogin(token))
+        .then(res => {
+            console.log(res);
+            if(res.token != 'ERROR'){
+                CheckSignIn.onSignIn(res.username, res.avatar)
             }
         })
         .catch(error => console.log('error at home', error));

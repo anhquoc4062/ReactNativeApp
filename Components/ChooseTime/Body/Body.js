@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Dimensions, Image} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Global from '../../../Globals';
+import ImageLoad from 'react-native-image-placeholder';
 
 const { width, height } = Dimensions.get("window");
 
@@ -104,7 +105,7 @@ export default class Body extends Component{
         const movieBanner = navigation.getParam('movieBanner', '');
         return(
             <View style={styles.wrapper}>
-                <Image source={{uri: "http://"+Global.API+"/server/uploads/banner/"+movieBanner}} style={styles.banner}/>
+                <ImageLoad source={{uri: "http://"+Global.API+"/server/uploads/banner/"+movieBanner}} style={styles.banner}/>
                 <View style={styles.movieNameContainer}>
                     <Text style={styles.movieName}>{movieName}</Text>
                 </View>
