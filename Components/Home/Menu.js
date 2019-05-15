@@ -6,6 +6,7 @@ import saveToken from '../../src/api/saveToken';
 import getToken from '../../src/api/getToken';
 import checkLogin from '../../src/api/checkLogin';
 import Global from '../../Globals';
+import ImageLoad from 'react-native-image-placeholder';
 
 const HomeIcon = "http://"+Global.API+"/server/uploads/icon/home.png";
 const ProfileIcon = "http://"+Global.API+"/server/uploads/icon/profile.png";
@@ -79,7 +80,10 @@ export default class Shop extends Component{
         const mainJSX = this.state.isLoggedIn ? logoutJSX: logintJSX;
         return(
             <View style={styles.wrapper}>
-                <Image source={this.state.avatar != '' ? {uri: "http://"+Global.API+"/server/uploads/avatar/"+this.state.avatar}: {uri: ProfileIcon}} style={styles.icon}/>
+                <Image
+                source={this.state.avatar != '' ? {uri: "http://"+Global.API+"/server/uploads/avatar/"+this.state.avatar}: {uri: ProfileIcon}} 
+                style={styles.icon}
+                />
                 <Text style={styles.profileName}>{this.state.profileName}</Text>
                 <View>
                     {mainJSX}

@@ -8,6 +8,7 @@ import Global from '../../../Globals';
 import Poster1 from '../../../src/images/posters/haiphuong.jpg';
 import Poster2 from '../../../src/images/posters/tinhdau.jpg';
 import Poster3 from '../../../src/images/posters/us.jpg';
+import ImageLoad from 'react-native-image-placeholder';
 //import { TextDecoder } from 'util';
 
 
@@ -53,7 +54,7 @@ export default class ViewPager extends Component{
                             movieId: item.id_phim,
                         })}>
                             <View style={styles.pageStyle} >
-                            <Image source={{uri: "http://"+Global.API+"/server/uploads/posters/"+item.hinh_phim}} style={styles.pagePoster} />
+                            <ImageLoad source={{uri: "http://"+Global.API+"/server/uploads/posters/"+item.hinh_phim}} style={styles.pagePoster} />
                             <View style={styles.caption}>
                                 <Text style={{color: '#C2C1C5', fontWeight: '700', fontSize: 16}}>{item.ten_phim}</Text>
                                 <View style={{flexDirection:'row', marginTop: 5}}>

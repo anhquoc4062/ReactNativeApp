@@ -71,7 +71,7 @@ export default class ChooseCombo extends Component{
                 </ScrollView>
                 <TouchableOpacity onPress={()=>this.goToCheckout()}>
                     <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#F66280', '#F95860']} style={styles.button}>
-                        <Text style={styles.buttonText}>CHỌN GHẾ</Text>
+                        <Text style={styles.buttonText}>THANH TOÁN - ${this.state.total}</Text>
                     </LinearGradient>
                         
                 </TouchableOpacity>

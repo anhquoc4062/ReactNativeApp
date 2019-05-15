@@ -4,6 +4,7 @@ import {View, Text, TouchableOpacity, StyleSheet, AsyncStorage, Dimensions, Imag
 import Global from '../../../Globals'
 
 import Swiper from 'react-native-swiper';
+import ImageLoad from 'react-native-image-placeholder'
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -20,12 +21,12 @@ export default class ViewSwiper extends Component{
         return(
             <View style={styles.wrapper}>
                 <Swiper activeDotColor='#ffffff' dotStyle={{borderColor:'white', borderWidth: 1 }}>
-                    <Image source={{uri: Slide1}} style={styles.banner}></Image>
-                    <Image source={{uri: Slide2}} style={styles.banner}></Image>   
-                    <Image source={{uri: Slide3}} style={styles.banner}></Image>
-                    <Image source={{uri: Slide4}} style={styles.banner}></Image>
-                    <Image source={{uri: Slide5}} style={styles.banner}></Image>
-                    <Image source={{uri: Slide6}} style={styles.banner}></Image>
+                    <ImageLoad source={{uri: Slide1}} style={styles.banner}></ImageLoad>
+                    <ImageLoad source={{uri: Slide2}} style={styles.banner}></ImageLoad>   
+                    <ImageLoad source={{uri: Slide3}} style={styles.banner}></ImageLoad>
+                    <ImageLoad source={{uri: Slide4}} style={styles.banner}></ImageLoad>
+                    <ImageLoad source={{uri: Slide5}} style={styles.banner}></ImageLoad>
+                    <ImageLoad source={{uri: Slide6}} style={styles.banner}></ImageLoad>
                 </Swiper>
             </View>
             

@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
   },
   upload: {
     color: '#C2C1C5',
-    fontSize: 13,
+    fontSize: 15,
     fontWeight:'bold'
   },
   uploadButton: {

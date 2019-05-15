@@ -73,7 +73,7 @@ export default class ChooseSeat extends Component{
                 </ScrollView>
                 <TouchableOpacity onPress={()=>this.goToCombo()}>
                 <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#F66280', '#F95860']} style={styles.button}>
-                    <Text style={styles.buttonText}>CHỌN GHẾ</Text>
+                    <Text style={styles.buttonText}>CHỌN COMBO - ${this.state.total}</Text>
                 </LinearGradient>
                         
                     </TouchableOpacity>

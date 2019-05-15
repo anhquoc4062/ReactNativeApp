@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Dimensions, Image, TouchableNativeFeedback} from 'react-native';
 import Global from '../../../Globals';
+import ImageLoad from 'react-native-image-placeholder';
 
 
 const { height, width } = Dimensions.get("window");
@@ -39,7 +40,7 @@ export default class ComingSoon extends Component{
                             movieId: item.id_phim,
                         })}>
                             <View style={styles.card} >
-                                <Image source={{uri: "http://"+Global.API+"/server/uploads/posters/"+item.hinh_phim}} style={styles.poster}/>
+                                <ImageLoad source={{uri: "http://"+Global.API+"/server/uploads/posters/"+item.hinh_phim}} style={styles.poster}/>
                                 <View style={styles.caption}>
                                     <Text style={{color: '#C2C1C5', fontWeight: '700', fontSize: 13, textAlign: 'center'}}>{item.ten_phim}</Text>
                                         <View style={{flexDirection:'row', marginTop: 5}}>

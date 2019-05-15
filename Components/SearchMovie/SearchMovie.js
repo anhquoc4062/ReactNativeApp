@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, Image, ScrollView, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Image, ScrollView, Dimensions, TouchableNativeFeedback, ActivityIndicator} from 'react-native';
 import Global from '../../Globals'
 import Icon from 'react-native-ionicons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -12,15 +12,20 @@ export default class App extends Component {
         this.state = {
             keyword: '',
             movieData: [],
+            isLoading: false
         }
     }
 
     onSearch(keyword){
+        this.setState({
+            isLoading: true
+        })
         return fetch('http://'+Global.API+'/server/getmoviebyname.php?keyword='+keyword)
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
                     movieData: responseJson,
+                    isLoading: false
                 }, function(){
 
                 });
@@ -39,6 +44,35 @@ export default class App extends Component {
         else{
             textResult=(<Text style={styles.movieName}>Không tìm thấy kết quả nào</Text>)
         }
+        var resultJSX = (
+            <ScrollView  contentContainerStyle={styles.contentContainer}>
+                {this.state.movieData.map((item, index)=>(
+                <TouchableNativeFeedback
+                onPress={()=>this.props.navigation.navigate('Detail',{
+                            movieId: item.id_phim,
+                        })}
+                        >
+                    <View style={styles.containerBox}>
+                        <Image source={{uri: "http://"+Global.API+"/server/uploads/posters/"+item.hinh_phim}} style={styles.poster}/>
+                        <View style={{flexDirection: 'column'}}>
+                        <Text style={styles.movieName}>
+                            {item.ten_phim}
+                        </Text>
+                        <Text style={styles.movieDuration}>{item.thoiluong_phim} phút</Text>
+                        <Text style={styles.movieDesc} numberOfLines={2}>{item.mota}</Text>
+                        </View>
+                    </View>
+                </TouchableNativeFeedback>
+                ))}
+            
+            </ScrollView>
+        );
+        var loadingJSX = (
+            <View style={{flex: 1, padding: 20, justifyContent: 'center'}}>
+                <ActivityIndicator size="large" color="#F66280"/>
+            </View>
+        );
+        var mainJSX = this.state.isLoading ? loadingJSX : resultJSX;
         return (
         <View style={styles.container}>
             <View style={{height: 60, justifyContent:'center', paddingHorizontal: 5}}>
@@ -53,21 +87,7 @@ export default class App extends Component {
                 </View>
             </View>
             {textResult}
-            <ScrollView  contentContainerStyle={styles.contentContainer}>
-                {this.state.movieData.map((item, index)=>(
-                    <View style={styles.containerBox}>
-                    <Image source={{uri: "http://"+Global.API+"/server/uploads/posters/"+item.hinh_phim}} style={styles.poster}/>
-                    <View style={{flexDirection: 'column'}}>
-                    <Text style={styles.movieName}>
-                        {item.ten_phim}
-                    </Text>
-                    <Text style={styles.movieDuration}>{item.thoiluong_phim} phút</Text>
-                    <Text style={styles.movieDesc} numberOfLines={2}>{item.mota}</Text>
-                    </View>
-                </View>
-                ))}
-            
-            </ScrollView>
+            {mainJSX}
         </View>
         );
     }

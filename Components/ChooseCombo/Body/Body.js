@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react
 import Carousel from 'react-native-snap-carousel';
 import { ScrollView, TouchableWithoutFeedback,  } from 'react-native-gesture-handler';
 import Global from '../../../Globals';
+import ImageLoad from 'react-native-image-placeholder';
 
 
 const { width, height } = Dimensions.get("window");
@@ -126,7 +127,8 @@ export default class Body extends Component{
                 {comboData.map((item,index) => (
                     <View style={comboItem} key={item.id_combo}>
                         
-                        <Image source={{uri: "http://"+Global.API+"/server/uploads/combo/"+item.hinh_combo}} style={comboImage}/>
+                        <ImageLoad 
+                                source={{uri: "http://"+Global.API+"/server/uploads/combo/"+item.hinh_combo}} style={comboImage}/>
                         <View style={comboInfoContainer}>
                             <Text style={comboName}>{item.ten_combo}</Text>
                             <Text style={comboPrice}>${item.gia_combo}</Text>
