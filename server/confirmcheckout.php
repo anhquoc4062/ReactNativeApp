@@ -9,10 +9,11 @@
 	$combodachon = $obj['combodachon'];
 	$giochieu = $obj['giochieu'];
 	$ngaychieu = $obj['ngaychieu'];
+	$tongtien = $obj['tongtien'];
 
 
 	if($idphim != '' || $idaccount != '' || $ghedachon != '' || $combodachon != '' || $giochieu != '' || $ngaychieu != ''){
-		$query_hoadon = "INSERT INTO `hoadon` (`id_account`, `id_phim`, `giochieu`, `ngaychieu`) VALUES ('$idaccount', '$idphim', '$giochieu', '$ngaychieu');";
+		$query_hoadon = "INSERT INTO `hoadon` (`id_account`, `id_phim`, `giochieu`, `ngaychieu`, `tongtien`) VALUES ('$idaccount', '$idphim', '$giochieu', '$ngaychieu', '$tongtien');";
 		if(mysqli_query($conn, $query_hoadon)){
 			$last_id = $conn->insert_id;
 

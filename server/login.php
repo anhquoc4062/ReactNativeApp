@@ -17,6 +17,7 @@
 		$token['id'] = $row['id_account'];
 		$token['username'] = $row['username_account'];
 		$token['email'] = $row['email_account'];
+		$token['avatar'] = $row['avatar'];
 
 		$jsonwebtoken = JWT::encode($token, "secret_key");
 
@@ -24,7 +25,8 @@
 		    'token' => $jsonwebtoken,
 		    'id' => $token['id'],
 		    'username' => $token['username'],
-		    'email' => $token['email']
+		    'email' => $token['email'],
+		    'avatar' => $token['avatar']
 		];
 
 		echo json_encode($info);

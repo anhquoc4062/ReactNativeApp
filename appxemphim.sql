@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 08, 2019 lúc 04:24 PM
--- Phiên bản máy phục vụ: 10.1.37-MariaDB
--- Phiên bản PHP: 7.3.1
+-- Máy chủ: localhost:3306
+-- Thời gian đã tạo: Th5 18, 2019 lúc 12:44 AM
+-- Phiên bản máy phục vụ: 10.3.14-MariaDB
+-- Phiên bản PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,8 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `appxemphim`
+-- Cơ sở dữ liệu: `id9290597_appxemphim`
 --
+CREATE DATABASE IF NOT EXISTS `id9290597_appxemphim` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `id9290597_appxemphim`;
 
 -- --------------------------------------------------------
 
@@ -41,8 +43,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id_account`, `username_account`, `email_account`, `avatar`, `password_account`) VALUES
-(1, 'anhquoc4062', 'anhquoc4062@gmail.com', '703424162_1557325052.jpeg', 'ce6eee13374e007c3236c2bbd5ba3f62'),
-(7, 'user', 'user@abc', '', '202cb962ac59075b964b07152d234b70');
+(1, 'anhquoc4062', 'anhquoc4062@gmail.com', '1984778685_1557912048.jpeg', 'ce6eee13374e007c3236c2bbd5ba3f62'),
+(9, 'user', 'user@abc.con', '1201049197_1557914728.jpeg', '202cb962ac59075b964b07152d234b70');
 
 -- --------------------------------------------------------
 
@@ -101,7 +103,12 @@ INSERT INTO `combodadat` (`id_combodadat`, `id_hoadon`, `id_combo`, `quantity`) 
 (11, 41, 3, 2),
 (12, 41, 2, 1),
 (13, 43, 3, 2),
-(14, 43, 2, 1);
+(14, 43, 2, 1),
+(15, 44, 2, 1),
+(16, 45, 2, 3),
+(17, 46, 3, 2),
+(18, 47, 2, 1),
+(19, 47, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -149,7 +156,16 @@ INSERT INTO `ghedadat` (`id_ghedadat`, `id_hoadon`, `ten_ghe`) VALUES
 (45, 41, 'I8'),
 (46, 42, 'J6'),
 (47, 43, 'G6'),
-(48, 43, 'H7');
+(48, 43, 'H7'),
+(49, 44, 'G6'),
+(50, 44, 'G7'),
+(51, 45, 'G9'),
+(52, 45, 'L11'),
+(53, 46, 'G7'),
+(54, 46, 'G8'),
+(55, 47, 'H6'),
+(56, 47, 'H7'),
+(57, 47, 'H8');
 
 -- --------------------------------------------------------
 
@@ -183,7 +199,11 @@ INSERT INTO `hoadon` (`id_hoadon`, `id_account`, `id_phim`, `giochieu`, `ngaychi
 (40, 0, 4, '11:00 AM', '06 tháng 05', 15),
 (41, 1, 4, '11:00 AM', '07 tháng 05', 19),
 (42, 1, 4, '11:00 AM', '07 tháng 05', 14),
-(43, 1, 3, '11:00 AM', '07 tháng 05', 29.5);
+(43, 1, 3, '11:00 AM', '07 tháng 05', 29.5),
+(44, 1, 6, '12:00 AM', '10 tháng 05', 21.5),
+(45, 1, 3, '11:00 AM', '10 tháng 05', 28.5),
+(46, 9, 4, '11:00 AM', '15 tháng 05', 26),
+(47, 9, 3, '11:00 AM', '15 tháng 05', 33.5);
 
 -- --------------------------------------------------------
 
@@ -297,7 +317,7 @@ ALTER TABLE `theloai`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id_account` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_account` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `combo`
@@ -309,19 +329,19 @@ ALTER TABLE `combo`
 -- AUTO_INCREMENT cho bảng `combodadat`
 --
 ALTER TABLE `combodadat`
-  MODIFY `id_combodadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_combodadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT cho bảng `ghedadat`
 --
 ALTER TABLE `ghedadat`
-  MODIFY `id_ghedadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id_ghedadat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT cho bảng `hoadon`
 --
 ALTER TABLE `hoadon`
-  MODIFY `id_hoadon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_hoadon` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT cho bảng `phim`
